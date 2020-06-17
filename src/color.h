@@ -1,5 +1,7 @@
 #pragma once
 #include "tuple.h"
+#include <sstream>
+#include <algorithm> 
 
 class Color : public Tuple
 {
@@ -38,6 +40,13 @@ public:
     friend Color operator* (const float& scalar, const Color& a)
     {
         return Color(scalar * a.x, scalar * a.y, scalar * a.z);
+    }
+
+    std::string toString()
+    {
+        std::stringstream ss;
+        ss << std::clamp((int)(x / 1.0f * 255), 0, 255) << " " << std::clamp((int)(y / 1.0f * 255), 0, 255) << " " << std::clamp((int)(z / 1.0f * 255), 0, 255);
+        return ss.str();
     }
 
 private:
