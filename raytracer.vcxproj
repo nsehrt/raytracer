@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\color.h" />
     <ClInclude Include="src\raytracerapp.h" />
     <ClInclude Include="src\tuple.h" />
   </ItemGroup>

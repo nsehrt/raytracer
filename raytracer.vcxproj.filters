@@ -24,6 +24,9 @@
     <ClInclude Include="src\raytracerapp.h">
       <Filter>Source Files\src</Filter>
     </ClInclude>
+    <ClInclude Include="src\color.h">
+      <Filter>Source Files\src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
