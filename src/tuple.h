@@ -4,8 +4,6 @@
 #include <iostream>
 #include <assert.h>
 
-constexpr float EPSILON = 0.00001f;
-
 class Tuple
 {
 
@@ -30,38 +28,38 @@ public:
     }
 
     /*check if tuple is a point*/
-    bool isPoint()
+    bool isPoint() const
     {
         return (isEqualFloat(w, 1.0f));
     }
 
     /*check if tuple is a vector*/
-    bool isVector()
+    bool isVector() const
     {
         return (isEqualFloat(w, 0.0f));
     }
 
     /*return magnitude of vector*/
-    float magnitude()
+    float magnitude() const
     {
         return (std::sqrt(x * x + y * y + z * z + w * w));
     }
 
     /*return a normalized tuple*/
-    Tuple normalize()
+    Tuple normalize() const
     {
         float mag = magnitude();
         return Tuple(x / mag, y / mag, z / mag, w / mag);
     }
 
     /*return dot product*/
-    float dot(const Tuple& t)
+    float dot(const Tuple& t) const
     {
         return (x * t.x + y * t.y + z * t.z + w * t.w);
     }
 
     /*return the cross product as a vector*/
-    Tuple cross(const Tuple & t)
+    Tuple cross(const Tuple & t) const
     {
         return Tuple::Vector(y * t.z - z * t.y,
                              z * t.x - x * t.z,
@@ -70,12 +68,12 @@ public:
 
     /*operator overloads*/
 
-    bool operator== (const Tuple& a)
+    bool operator== (const Tuple& a) const
     {
         return (isEqualFloat(a.x, x) && isEqualFloat(a.y, y) && isEqualFloat(a.z, z) && isEqualFloat(a.w, w));
     }
 
-    bool operator!= (const Tuple& a)
+    bool operator!= (const Tuple& a) const
     {
         return !(operator==(a));
     }
@@ -134,9 +132,9 @@ public:
 private:
 
     /*used to determine wheter floats are equal or close enough to equal*/
-    bool isEqualFloat(const float& a, const float& b)
+    bool isEqualFloat(const float& a, const float& b) const
     {
-        return (std::abs(a - b) < EPSILON);
+        return (std::abs(a - b) < 0.00001f);
     }
 
 };

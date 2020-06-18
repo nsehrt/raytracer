@@ -26,6 +26,8 @@ RayTracerApp::RayTracerApp()
 
     m[1][2] = 1.5f;
 
+    m = Matrix<4, 4>::identity();
+
     std::cout << m;
 
 }
