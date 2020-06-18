@@ -2,32 +2,20 @@
 
 RayTracerApp::RayTracerApp()
 {
-    //Canvas canvas(900, 550);
+    Canvas canvas(100, 100);
 
-    //Tuple start = Tuple::Point(0, 1, 0);
-    //Tuple velocity = Tuple::Vector(1, 1.8, 0).normalize() * 11.25;
+    Tuple canvasCenter = Tuple::Point(50, 50, 50);
 
-    //Tuple gravity = Tuple::Vector(0.0f, -0.1f, 0.0f);
-    //Tuple wind = Tuple::Vector(-0.01f, 0.0f, 0.0f);
+    Tuple center = Tuple::Point(1, 0, 0);
 
-    //Tuple projPosition = start;
+    for (int i = 0; i < 12; i++)
+    {
+        auto trf = Matrix<4, 4>::rotateY(2 * PI / i);
+        auto p = trf * center;
 
-    //for (int i = 0; i < 1000; i++)
-    //{
-    //    projPosition = projPosition + velocity;
-    //    velocity = velocity + gravity + wind;
+        canvas.writePixel((int)p.x, (int)p.y, Color(1.0f, 0.0f, 0.0f));
+    }
 
-    //    canvas.writePixel((int)projPosition.x, canvas.getHeight() - (int)projPosition.y, Color(1.0f, 0.0f, 0.0f));
-    //}
 
-    //canvas.save("cannon.ppm");
-
-    Matrix<4, 4> m;
-
-    m[1][2] = 1.5f;
-
-    m = Matrix<4, 4>::identity();
-
-    std::cout << m;
-
+    canvas.save("canvas.ppm");
 }

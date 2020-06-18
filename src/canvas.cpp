@@ -20,7 +20,7 @@ Canvas::~Canvas()
 
 void Canvas::writePixel(int x, int y, const Color& col)
 {
-    if (x > (int)width || y > (int)height)
+    if (x > (int)width || y > (int)height || x < 0 || y < 0)
     {
         return;
     }
@@ -29,7 +29,7 @@ void Canvas::writePixel(int x, int y, const Color& col)
 
 Color Canvas::getPixel(int x, int y) const
 {
-    if (x > (int)width || y > (int)height) {
+    if (x > (int)width || y > (int)height || x < 0 || y < 0) {
         return Color(0.0f, 0.0f, 0.0f);
     }
 
