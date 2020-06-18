@@ -6,14 +6,20 @@ RayTracerApp::RayTracerApp()
 
     Tuple canvasCenter = Tuple::Point(50, 50, 50);
 
-    Tuple center = Tuple::Point(1, 0, 0);
+    Tuple twelve = Tuple::Point(0, 0, 1);
+    float radius = (3.0f / 8.0f) * 100;
 
-    for (int i = 0; i < 12; i++)
+    int iter = 12;
+
+    for (int i = 0; i < iter; i++)
     {
-        auto trf = Matrix<4, 4>::rotateY(2 * PI / i);
-        auto p = trf * center;
+        auto trf = Matrix<4, 4>::rotateY(i * (2 * PI/(float)iter));
+        auto p = trf * twelve;
+        p *= radius;
 
-        canvas.writePixel((int)p.x, (int)p.y, Color(1.0f, 0.0f, 0.0f));
+        p += canvasCenter;
+
+        canvas.writePixel((int)p.x, (int)p.z, Color(1.0f, 0.0f, 0.0f));
     }
 
 

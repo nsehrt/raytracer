@@ -83,6 +83,14 @@ public:
         return Tuple(x + a.x, y + a.y, z + a.z, w + a.w);
     }
 
+    void operator+= (const Tuple& a)
+    {
+        x += a.x;
+        y += a.y;
+        z += a.z;
+        w += a.w;
+    }
+
     Tuple operator- (const Tuple& a)
     {
         return Tuple(x - a.x, y - a.y, z - a.z, w - a.w);
@@ -93,9 +101,26 @@ public:
         return Tuple(-x, -y, -z, -w);
     }
 
+    void operator-= (const Tuple& a)
+    {
+        x -= a.x;
+        y -= a.y;
+        z -= a.z;
+        w -= a.w;
+    }
+
+
     Tuple operator* (const float& scalar)
     {
         return Tuple(scalar * x, scalar * y, scalar * z, scalar * w);
+    }
+
+    void operator*= (const float& scalar)
+    {
+        x *= scalar;
+        y *= scalar;
+        z *= scalar;
+        w *= scalar;
     }
 
     friend Tuple operator* (const float& scalar, const Tuple& a)
@@ -106,6 +131,14 @@ public:
     Tuple operator/ (const float& scalar)
     {
         return Tuple(x / scalar, y / scalar, z / scalar, w / scalar);
+    }
+
+    void operator/= (const float& scalar)
+    {
+        x /= scalar;
+        y /= scalar;
+        z /= scalar;
+        w /= scalar;
     }
 
     float operator[](size_t index) const
