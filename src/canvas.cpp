@@ -22,7 +22,6 @@ void Canvas::writePixel(int x, int y, const Color& col)
 {
     if (x > (int)width || y > (int)height)
     {
-        std::cerr << "writePixel(): Out of Bounds!" << std::endl;
         return;
     }
     pixels[y * width + x] = col;
@@ -31,7 +30,6 @@ void Canvas::writePixel(int x, int y, const Color& col)
 Color Canvas::getPixel(int x, int y) const
 {
     if (x > (int)width || y > (int)height) {
-        std::cerr << "getPixel(): Out of Bounds!" << std::endl;
         return Color(0.0f, 0.0f, 0.0f);
     }
 

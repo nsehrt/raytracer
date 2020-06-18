@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="src\canvas.h" />
     <ClInclude Include="src\color.h" />
+    <ClInclude Include="src\matrix.h" />
     <ClInclude Include="src\raytracerapp.h" />
     <ClInclude Include="src\tuple.h" />
   </ItemGroup>

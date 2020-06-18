@@ -2,6 +2,7 @@
 
 #include "tuple.h"
 #include "canvas.h"
+#include "matrix.h"
 #include <iostream>
 
 using UINT = unsigned int;

@@ -30,6 +30,9 @@
     <ClInclude Include="src\canvas.h">
       <Filter>Source Files\src</Filter>
     </ClInclude>
+    <ClInclude Include="src\matrix.h">
+      <Filter>Source Files\src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
