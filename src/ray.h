@@ -77,6 +77,8 @@ public:
             comps.normalV *= -1.0f;
         }
 
+        comps.overPoint = comps.point + comps.normalV * (EPSILON* 250.0f); /*shadow acne*/
+
         return comps;
     }
 

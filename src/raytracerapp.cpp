@@ -52,7 +52,7 @@ void RayTracerApp::drawSphereSilhouette()
 
 void RayTracerApp::drawSphereLit()
 {
-    Canvas canvas(150, 150);
+    Canvas canvas(100, 100);
 
     Color red = Color(1.0f, 0.0f, 0.0f);
     std::shared_ptr<Sphere> s = std::make_shared<Sphere>();
@@ -96,7 +96,7 @@ void RayTracerApp::drawSphereLit()
                 Tuple normal = hit.object->normalAt(point);
                 Tuple eye = -r.direction;
 
-                Color out = lighting(hit.object->material, light, point, eye, normal);
+                Color out = lighting(hit.object->material, light, point, eye, normal, false);
 
                 canvas.writePixel(x, y, out);
             }
@@ -143,7 +143,7 @@ void RayTracerApp::drawFirstScene()
     right->material.specular = 0.3f;
 
     auto left = std::make_shared<Sphere>();
-    left->transform = Matrix<4, 4>::translation(-1.5f, 0.33, -0.75f) * Matrix<4, 4>::scale(0.33f, 0.33f, 0.33f);
+    left->transform = Matrix<4, 4>::translation(-1.5f, 0.33f, -0.75f) * Matrix<4, 4>::scale(0.33f, 0.33f, 0.33f);
     left->material.color = Color(1, 0.8f, 0.1f);
     left->material.diffuse = 0.7f;
     left->material.specular = 0.3f;

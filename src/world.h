@@ -37,9 +37,24 @@ public:
 
     Color shadeHit(const IntersectionData& i)const
     {
-        return lighting(i.object->material, pointLights[0], i.point, i.eyeV, i.normalV);
+        bool shadowed = isShadowed(i.overPoint);
+
+        return lighting(i.object->material, pointLights[0], i.overPoint, i.eyeV, i.normalV, shadowed);
     }
 
+
+    bool isShadowed(const Tuple& point) const
+    {
+        auto v = pointLights[0].position - point;
+        auto distance = v.magnitude();
+        auto direction = v.normalize();
+
+        auto intersections = intersects(Ray(point, direction));
+
+        auto hit = Intersection::hit(intersections);
+
+        return  (hit && hit.time < distance);
+    }
 
 
     Color colorAt(const Ray& r) const

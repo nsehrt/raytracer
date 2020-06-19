@@ -10,6 +10,7 @@ struct IntersectionData
     Tuple point;
     Tuple eyeV;
     Tuple normalV;
+    Tuple overPoint;
 };
 
 class Intersection

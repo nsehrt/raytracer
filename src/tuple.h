@@ -4,6 +4,8 @@
 #include <iostream>
 #include <assert.h>
 
+#define EPSILON 0.00001f
+
 class Tuple
 {
 
@@ -183,7 +185,7 @@ private:
     /*used to determine wheter floats are equal or close enough to equal*/
     bool isEqualFloat(const float& a, const float& b) const
     {
-        return (std::abs(a - b) < 0.00001f);
+        return (std::abs(a - b) < EPSILON);
     }
 
 };

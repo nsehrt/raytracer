@@ -31,7 +31,7 @@ private:
 
 };
 
-static Color lighting(const Material& mat, const PointLight& light, const Tuple& pos,  const Tuple& eyeVector, const Tuple& normalVector)
+static Color lighting(const Material& mat, const PointLight& light, const Tuple& pos,  const Tuple& eyeVector, const Tuple& normalVector, bool inShadow)
 {
     Color ambient, diffuse, specular;
 
@@ -39,6 +39,8 @@ static Color lighting(const Material& mat, const PointLight& light, const Tuple&
 
     const Tuple lightV = (light.position - pos).normalize();
     ambient = effectiveColor * mat.ambient;
+
+    if (inShadow) return ambient;
 
     float lightDotNormal = lightV.dot(normalVector);
 
