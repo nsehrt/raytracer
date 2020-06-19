@@ -45,6 +45,12 @@
     <ClInclude Include="src\shape.h">
       <Filter>Source Files\src</Filter>
     </ClInclude>
+    <ClInclude Include="src\light.h">
+      <Filter>Source Files\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\material.h">
+      <Filter>Source Files\src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">

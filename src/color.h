@@ -27,12 +27,12 @@ public:
     }
 
     /*operator overload*/
-    Color operator* (const Color& a)
+    Color operator* (const Color& a) const
     {
         return Color(x * a.x, y * a.y, z * a.z);
     }
 
-    Color operator* (const float& scalar)
+    Color operator* (const float& scalar) const
     {
         return Color(scalar * x, scalar * y, scalar * z);
     }

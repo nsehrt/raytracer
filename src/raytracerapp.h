@@ -4,6 +4,8 @@
 #include "canvas.h"
 #include "matrix.h"
 #include "sphere.h"
+#include "light.h"
+#include "material.h"
 #include "ray.h"
 #include <iostream>
 
@@ -16,6 +18,7 @@ public:
     ~RayTracerApp() = default;
 
     void drawSphereSilhouette();
+    void drawSphereLit();
 
 private:
 

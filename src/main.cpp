@@ -5,6 +5,7 @@ int main()
 {
     RayTracerApp rayTracerApp;
 
-    rayTracerApp.drawSphereSilhouette();
+    //rayTracerApp.drawSphereSilhouette();
+    rayTracerApp.drawSphereLit();
 
 }
