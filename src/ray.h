@@ -32,7 +32,7 @@ public:
     {
         std::vector<Intersection> intersection(0);
 
-        Ray rTrf = sphere.world.inverse() * *this;
+        Ray rTrf = sphere.World().inverse() * *this;
 
         Tuple sphereToRay = rTrf.origin - Tuple::Point(0, 0, 0);
 

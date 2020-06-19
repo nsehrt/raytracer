@@ -16,11 +16,20 @@ public:
         world = w;
     }
 
+    Matrix<4, 4>& World()
+    {
+        return world;
+    }
 
-    Matrix<4,4> world;
+    Matrix<4, 4> WorldInverse() const
+    {
+        return world.inverse();
+    }
 
-private:
+    virtual Tuple normalAt(const Tuple& p) const = 0;
 
+protected:
 
+    Matrix<4, 4> world;
 
 };

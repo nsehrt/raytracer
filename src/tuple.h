@@ -88,7 +88,7 @@ public:
         return !(operator==(a));
     }
 
-    Tuple operator+ (const Tuple& a)
+    Tuple operator+ (const Tuple& a) const
     {
         return Tuple(x + a.x, y + a.y, z + a.z, w + a.w);
     }
@@ -101,12 +101,12 @@ public:
         w += a.w;
     }
 
-    Tuple operator- (const Tuple& a)
+    Tuple operator- (const Tuple& a) const
     {
         return Tuple(x - a.x, y - a.y, z - a.z, w - a.w);
     }
 
-    Tuple operator- ()
+    Tuple operator- () const
     {
         return Tuple(-x, -y, -z, -w);
     }
@@ -120,7 +120,7 @@ public:
     }
 
 
-    Tuple operator* (const float& scalar)
+    Tuple operator* (const float& scalar) const
     {
         return Tuple(scalar * x, scalar * y, scalar * z, scalar * w);
     }
@@ -138,7 +138,7 @@ public:
         return Tuple(scalar * a.x, scalar * a.y, scalar * a.z, scalar * a.w);
     }
 
-    Tuple operator/ (const float& scalar)
+    Tuple operator/ (const float& scalar) const
     {
         return Tuple(x / scalar, y / scalar, z / scalar, w / scalar);
     }
