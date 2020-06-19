@@ -30,6 +30,7 @@
     <ClInclude Include="src\shape.h" />
     <ClInclude Include="src\sphere.h" />
     <ClInclude Include="src\tuple.h" />
+    <ClInclude Include="src\world.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\canvas.cpp" />

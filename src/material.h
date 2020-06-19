@@ -22,6 +22,9 @@ public:
         shininess = 200.0f;
     };
 
+    Material(const Color& _intensity, float a, float d, float s, float sh) :
+        intensity(_intensity), ambient(a), diffuse(d), specular(s), shininess(sh){ }
+
     ~Material() = default;
 
     /*overloads*/

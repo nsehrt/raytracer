@@ -5,7 +5,8 @@
 class Sphere : public Shape
 {
 public:
-
+    Sphere() : Shape() {}
+    Sphere(const Material& m) : Shape(m){}
 
     Tuple normalAt(const Tuple& p) const override
     {

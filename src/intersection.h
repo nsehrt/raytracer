@@ -2,6 +2,16 @@
 
 #include "shape.h"
 
+struct IntersectionData
+{
+    Shape* object;
+    float time;
+    bool inside = false;
+    Tuple point;
+    Tuple eyeV;
+    Tuple normalV;
+};
+
 class Intersection
 {
 public:

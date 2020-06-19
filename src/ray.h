@@ -28,11 +28,11 @@ public:
     }
 
     /*calculate the intersection(s) between this ray and a sphere*/
-    std::vector<Intersection> intersects(Sphere& sphere)
+    std::vector<Intersection> intersects(Shape& shape)
     {
         std::vector<Intersection> intersection(0);
 
-        Ray rTrf = sphere.WorldInverse() * *this;
+        Ray rTrf = shape.WorldInverse() * *this;
 
         Tuple sphereToRay = rTrf.origin - Tuple::Point(0, 0, 0);
 
@@ -50,8 +50,8 @@ public:
         float t0 = (-b - std::sqrt(discriminant)) / (2 * a);
         float t1 = (-b + std::sqrt(discriminant)) / (2 * a);
 
-        intersection.push_back(Intersection(t0, &sphere));
-        intersection.push_back(Intersection(t1, &sphere));
+        intersection.push_back(Intersection(t0, &shape));
+        intersection.push_back(Intersection(t1, &shape));
 
         std::sort(intersection.begin(), intersection.end(), [](const Intersection& a, const Intersection& b)
                   {
@@ -59,6 +59,25 @@ public:
                   });
 
         return intersection;
+    }
+
+    IntersectionData precompute(const Intersection& i)
+    {
+        IntersectionData comps;
+
+        comps.time = i.time;
+        comps.object = i.object;
+        comps.point = position(comps.time);
+        comps.eyeV = -direction;
+        comps.normalV = comps.object->normalAt(comps.point);
+
+        if (comps.normalV.dot(comps.eyeV) < 0.0f)
+        {
+            comps.inside = true;
+            comps.normalV *= -1.0f;
+        }
+
+        return comps;
     }
 
     /*transform with matrix*/
