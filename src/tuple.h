@@ -21,10 +21,20 @@ public:
         return Tuple(_x, _y, _z, 1.0f);
     }
 
+    static Tuple Point()
+    {
+        return Tuple(0.0f, 0.0f, 0.0f, 1.0f);
+    }
+
     /*create a vector with values x, y, z, 0.0f*/
     static Tuple Vector(float _x, float _y, float _z)
     {
         return Tuple(_x, _y, _z, 0.0f);
+    }
+
+    static Tuple Vector()
+    {
+        return Tuple(0.0f, 0.0f, 0.0f, 0.0f);
     }
 
     /*check if tuple is a point*/

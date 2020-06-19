@@ -3,6 +3,8 @@
 #include "tuple.h"
 #include "canvas.h"
 #include "matrix.h"
+#include "sphere.h"
+#include "ray.h"
 #include <iostream>
 
 using UINT = unsigned int;
@@ -13,7 +15,8 @@ public:
     explicit RayTracerApp();
     ~RayTracerApp() = default;
 
-private:
+    void drawSphereSilhouette();
 
+private:
 
 };

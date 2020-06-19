@@ -99,7 +99,7 @@ public:
         return inverse;
     }
 
-    bool isInvertible()
+    bool isInvertible() const
     {
         return (bool)determinant();
     }
@@ -250,7 +250,7 @@ public:
         return result;
     }
 
-    Tuple operator* (const Tuple& t)
+    Tuple operator* (const Tuple& t) const
     {
         return Tuple(matrix[0][0] * t.x + matrix[0][1] * t.y + matrix[0][2] * t.z + matrix[0][3] * t.w,
                      matrix[1][0] * t.x + matrix[1][1] * t.y + matrix[1][2] * t.z + matrix[1][3] * t.w,
