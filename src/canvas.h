@@ -19,7 +19,7 @@ public:
     }
 
     /*set pixel x, y to color col*/
-    void writePixel(int x, int y, const Color& col);
+    void writePixel(int x, int y, const Color col);
 
     /*get the color of the pixel x, y*/
     Color getPixel(int x, int y) const;

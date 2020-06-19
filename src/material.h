@@ -6,7 +6,7 @@ class Material
 {
 public:
     Material() {
-        intensity = Color(1.0f, 1.0f, 1.0f);
+        color = Color(1.0f, 1.0f, 1.0f);
         ambient = 0.1f;
         diffuse = 0.9f;
         specular = 0.9f;
@@ -15,7 +15,7 @@ public:
 
     Material(const Color& _intensity)
     {
-        intensity = _intensity;
+        color = _intensity;
         ambient = 0.1f;
         diffuse = 0.9f;
         specular = 0.9f;
@@ -23,21 +23,21 @@ public:
     };
 
     Material(const Color& _intensity, float a, float d, float s, float sh) :
-        intensity(_intensity), ambient(a), diffuse(d), specular(s), shininess(sh){ }
+        color(_intensity), ambient(a), diffuse(d), specular(s), shininess(sh){ }
 
     ~Material() = default;
 
     /*overloads*/
     friend std::ostream& operator<<(std::ostream& os, Material const& i)
     {
-        os << "(" << i.intensity.r() << ", " << i.intensity.g() << ", " << i.intensity.b() << " | " <<
+        os << "(" << i.color.r() << ", " << i.color.g() << ", " << i.color.b() << " | " <<
             i.ambient << ", " << i.diffuse << ", " << i.specular << ", " << i.shininess;
         return os;
     }
 
     bool operator==(Material const& i) const
     {
-        return (intensity == i.intensity && ambient == i.ambient && diffuse == i.diffuse && specular == i.specular && shininess == i.shininess);
+        return (color == i.color && ambient == i.ambient && diffuse == i.diffuse && specular == i.specular && shininess == i.shininess);
     }
 
     bool operator!=(Material const& i) const
@@ -45,7 +45,7 @@ public:
         return !operator==(i);
     }
 
-    Color intensity;
+    Color color;
     float ambient;
     float diffuse;
     float specular;

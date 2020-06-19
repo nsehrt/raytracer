@@ -1,11 +1,20 @@
 #include <iostream>
 #include "raytracerapp.h"
+#include <chrono>
 
 int main()
 {
     RayTracerApp rayTracerApp;
 
+    auto start = std::chrono::system_clock::now();
+
     //rayTracerApp.drawSphereSilhouette();
-    rayTracerApp.drawSphereLit();
+    //rayTracerApp.drawSphereLit();
+    rayTracerApp.drawFirstScene();
+
+    auto end = std::chrono::system_clock::now();
+
+    std::cout << "Finished in " << std::chrono::duration_cast<std::chrono::milliseconds> (end - start).count() << " ms." << std::endl;
+
 
 }

@@ -11,20 +11,19 @@ Canvas::Canvas(unsigned int w, unsigned int h)
 
 Canvas::~Canvas()
 {
-    if (pixels)
+    if (pixels != nullptr)
     {
         delete[] pixels;
-        pixels = nullptr;
     }
 }
 
-void Canvas::writePixel(int x, int y, const Color& col)
+void Canvas::writePixel(int x, int y, const Color col)
 {
     if (x > (int)width || y > (int)height || x < 0 || y < 0)
     {
         return;
     }
-    pixels[y * width + x] = col;
+    pixels[x + (width * y)] = col;
 }
 
 Color Canvas::getPixel(int x, int y) const
@@ -33,7 +32,7 @@ Color Canvas::getPixel(int x, int y) const
         return Color(0.0f, 0.0f, 0.0f);
     }
 
-    return pixels[y * width + x];
+    return pixels[x + (width * y)];
 }
 
 void Canvas::save(const std::string& fileName)

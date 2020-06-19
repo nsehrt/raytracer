@@ -7,6 +7,8 @@
 #include "light.h"
 #include "material.h"
 #include "ray.h"
+#include "world.h"
+#include "camera.h"
 #include <iostream>
 
 using UINT = unsigned int;
@@ -19,6 +21,7 @@ public:
 
     void drawSphereSilhouette();
     void drawSphereLit();
+    void drawFirstScene();
 
 private:
 

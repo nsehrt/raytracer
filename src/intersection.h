@@ -4,8 +4,8 @@
 
 struct IntersectionData
 {
-    Shape* object;
-    float time;
+    Shape* object = nullptr;
+    float time = 0.0f;
     bool inside = false;
     Tuple point;
     Tuple eyeV;

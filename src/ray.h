@@ -22,17 +22,17 @@ public:
     }
 
     /*basic functionality*/
-    Tuple position(float t)
+    Tuple position(float t) const
     {
         return origin + direction * t;
     }
 
     /*calculate the intersection(s) between this ray and a sphere*/
-    std::vector<Intersection> intersects(Shape& shape)
+    std::vector<Intersection> intersects(std::shared_ptr<Shape> shape) const
     {
         std::vector<Intersection> intersection(0);
 
-        Ray rTrf = shape.WorldInverse() * *this;
+        Ray rTrf = shape->WorldInverse() * *this;
 
         Tuple sphereToRay = rTrf.origin - Tuple::Point(0, 0, 0);
 
@@ -50,8 +50,8 @@ public:
         float t0 = (-b - std::sqrt(discriminant)) / (2 * a);
         float t1 = (-b + std::sqrt(discriminant)) / (2 * a);
 
-        intersection.push_back(Intersection(t0, &shape));
-        intersection.push_back(Intersection(t1, &shape));
+        intersection.push_back(Intersection(t0, shape.get()));
+        intersection.push_back(Intersection(t1, shape.get()));
 
         std::sort(intersection.begin(), intersection.end(), [](const Intersection& a, const Intersection& b)
                   {
@@ -61,7 +61,7 @@ public:
         return intersection;
     }
 
-    IntersectionData precompute(const Intersection& i)
+    IntersectionData precompute(const Intersection& i) const
     {
         IntersectionData comps;
 

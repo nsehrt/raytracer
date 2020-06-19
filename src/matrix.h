@@ -215,6 +215,30 @@ public:
         return m;
     }
 
+    static Matrix<4, 4> view(const Tuple& from, const Tuple& to, const Tuple& up)
+    {
+        auto m = Matrix<4, 4>::identity();
+
+        Tuple forward = (to - from).normalize();
+        Tuple left = forward.cross(up.normalize());
+        Tuple trueUp = left.cross(forward);
+        forward = -forward;
+
+        m[0][0] = left.x;
+        m[0][1] = left.y;
+        m[0][2] = left.z;
+
+        m[1][0] = trueUp.x;
+        m[1][1] = trueUp.y;
+        m[1][2] = trueUp.z;
+
+        m[2][0] = forward.x;
+        m[2][1] = forward.y;
+        m[2][2] = forward.z;
+
+        return m * Matrix<4,4>::translation(-from.x, -from.y, -from.z);
+    }
+
     /*operator overloads*/
     friend std::ostream& operator<< (std::ostream& os, const Matrix<rows, columns>& m)
     {

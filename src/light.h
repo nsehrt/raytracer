@@ -35,7 +35,7 @@ static Color lighting(const Material& mat, const PointLight& light, const Tuple&
 {
     Color ambient, diffuse, specular;
 
-    const Color effectiveColor = mat.intensity * light.intensity;
+    const Color effectiveColor = mat.color * light.intensity;
 
     const Tuple lightV = (light.position - pos).normalize();
     ambient = effectiveColor * mat.ambient;
