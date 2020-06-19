@@ -76,6 +76,12 @@ public:
                              x * t.y - y * t.x);
     }
 
+    /*reflect around normal vector*/
+    Tuple reflect(const Tuple& normal) const
+    {
+        return (*this - normal * 2.0f * this->dot(normal));
+    }
+
     /*operator overloads*/
 
     bool operator== (const Tuple& a) const
