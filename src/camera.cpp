@@ -1,0 +1,72 @@
+#include "camera.h"
+#include <thread>
+
+Ray Camera::rayForPixel(const int x, const int y) const
+{
+    float xoffset = ((float)x + 0.5f) * pixelSize;
+    float yoffset = ((float)y + 0.5f) * pixelSize;
+
+    float worldX = halfWidth - xoffset;
+    float worldY = halfHeight - yoffset;
+
+    auto pixel = transform.inverse() * Tuple::Point(worldX, worldY, -1.0f);
+    auto origin = transform.inverse() * Tuple::Point(0, 0, 0);
+
+    return Ray(origin, (pixel - origin).normalize());
+}
+
+Canvas Camera::render(const World& w)
+{
+    Canvas image = Canvas(hSize, vSize);
+
+    const int threadCount = 16;
+    std::vector<std::thread> threads(threadCount);
+
+    int perThread = divRoundClosest(hSize, threadCount);
+
+    for (int i = 0; i < threadCount; i++)
+    {
+        int s = i * perThread;
+        int e = (i + 1) * perThread;
+
+        threads[i] = std::thread([&, s, e]()
+        {
+
+            for (int y = 0; y < vSize; y++)
+            {
+                for (int x = s; x < e; x++)
+                {
+                    if (x >= hSize) continue;
+                    Ray r = rayForPixel(x, y);
+                    Color out = w.colorAt(r);
+                    image.writePixel(x, y, out);
+                }
+            }
+
+        });
+    }
+
+    for (auto& t : threads)
+    {
+        t.join();
+    }
+
+    return image;
+}
+
+Canvas Camera::renderSingle(const World& w)
+{
+        Canvas image = Canvas(hSize, vSize);
+
+        for (int y = 0; y < vSize; y++)
+        {
+            for (int x = 0; x < hSize; x++)
+            {
+                Ray r = rayForPixel(x, y);
+                Color out = w.colorAt(r);
+                image.writePixel(x, y, out);
+            }
+        }
+
+        return image;
+}

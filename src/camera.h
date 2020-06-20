@@ -38,37 +38,11 @@ public:
     ~Camera() = default;
 
 
-    Ray rayForPixel(const int x, const int y) const
-    {
-        float xoffset = ((float)x + 0.5f) * pixelSize;
-        float yoffset = ((float)y + 0.5f) * pixelSize;
-
-        float worldX = halfWidth - xoffset;
-        float worldY = halfHeight - yoffset;
-
-        auto pixel = transform.inverse() * Tuple::Point(worldX, worldY, -1.0f);
-        auto origin = transform.inverse() * Tuple::Point(0, 0, 0);
-
-        return Ray(origin, (pixel - origin).normalize());
-    }
+    Ray rayForPixel(const int x, const int y) const;
 
 
-    Canvas render(const World& w)
-    {
-        Canvas image = Canvas(hSize, vSize);
-
-        for (int y = 0; y < vSize; y++)
-        {
-            for (int x = 0; x < hSize; x++)
-            {
-                Ray r = rayForPixel(x, y);
-                Color out = w.colorAt(r);
-                image.writePixel(x, y, out);
-            }
-        }
-
-        return image;
-    }
+    Canvas render(const World& w);
+    Canvas renderSingle(const World& w);
 
     float pixelSize;
 
@@ -86,3 +60,8 @@ private:
     float fov;
 
 };
+
+static int divRoundClosest(const int n, const int d)
+{
+    return ((n < 0) ^ (d < 0)) ? ((n - d / 2) / d) : ((n + d / 2) / d);
+}

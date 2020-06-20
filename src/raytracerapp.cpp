@@ -164,7 +164,7 @@ void RayTracerApp::drawPlanes()
 {
 
     World w;
-    Camera c(640, 480, PI / 3.0f);
+    Camera c(1920, 1080, PI / 3.0f);
     c.transform = Matrix<4, 4>::view(Tuple::Point(0, 1.5f, -5), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
 
     w.pointLights[0].position = Tuple::Point(-10, 10, -10);

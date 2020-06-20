@@ -36,6 +36,7 @@
     <ClInclude Include="src\world.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\canvas.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\plane.cpp" />
