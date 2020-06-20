@@ -37,7 +37,7 @@ void RayTracerApp::drawSphereSilhouette()
 
             Ray r = Ray(ray_origin, (position - ray_origin).normalize());
 
-            auto xs = r.intersects(s);
+            auto xs = s->intersect(r);
 
             if (Intersection::hit(xs))
             {
@@ -86,7 +86,7 @@ void RayTracerApp::drawSphereLit()
 
             Ray r = Ray(ray_origin, (position - ray_origin).normalize());
 
-            auto xs = r.intersects(s); 
+            auto xs = s->intersect(r);
 
             Intersection hit = Intersection::hit(xs);
 

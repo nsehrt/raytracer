@@ -1,14 +1,12 @@
 #pragma once
 
-#include "tuple.h"
-#include "canvas.h"
-#include "matrix.h"
-#include "sphere.h"
-#include "light.h"
-#include "material.h"
-#include "ray.h"
-#include "world.h"
 #include "camera.h"
+#include "canvas.h"
+#include "intersection.h"
+#include "light.h"
+#include "ray.h"
+#include "sphere.h"
+
 #include <iostream>
 
 using UINT = unsigned int;

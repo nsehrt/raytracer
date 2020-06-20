@@ -26,7 +26,7 @@ public:
         std::vector<Intersection> result;
 
         for (auto o : objects)
-            for (const auto i : r.intersects(o))
+            for (const auto i : o->intersect(r))
                 result.push_back(i);
 
         std::sort(result.begin(), result.end());

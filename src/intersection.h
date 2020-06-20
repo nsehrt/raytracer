@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Matrix.h"
-#include "Tuple.h"
 
 class Shape;
 
