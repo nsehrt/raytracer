@@ -6,15 +6,11 @@ Canvas::Canvas(unsigned int w, unsigned int h)
     width = w;
     height = h;
 
-    pixels = new Color[width * height];
+    pixels.resize((long long)width * height);
 }
 
 Canvas::~Canvas()
 {
-    if (pixels != nullptr)
-    {
-        delete[] pixels;
-    }
 }
 
 void Canvas::writePixel(int x, int y, const Color col)
@@ -23,7 +19,8 @@ void Canvas::writePixel(int x, int y, const Color col)
     {
         return;
     }
-    pixels[x + (width * y)] = col;
+    long long index = (long long)x + (long long)width * (long long)y;
+    pixels[index] = col;
 }
 
 Color Canvas::getPixel(int x, int y) const
@@ -31,8 +28,8 @@ Color Canvas::getPixel(int x, int y) const
     if (x > (int)width || y > (int)height || x < 0 || y < 0) {
         return Color(0.0f, 0.0f, 0.0f);
     }
-
-    return pixels[x + (width * y)];
+    long long index = (long long)x + (long long)width * (long long)y;
+    return pixels[index];
 }
 
 void Canvas::save(const std::string& fileName)

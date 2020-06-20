@@ -1,6 +1,7 @@
 #pragma once
 
 #include "color.h"
+#include <vector>
 
 class Canvas
 {
@@ -29,5 +30,5 @@ public:
 
 private:
     unsigned int width, height;
-    Color* pixels;
+    std::vector<Color> pixels;
 };
