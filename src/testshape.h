@@ -2,17 +2,20 @@
 
 #include "shape.h"
 
-class Sphere : public Shape
+class Ray;
+
+class TestShape : public Shape
 {
 public:
-    Sphere() : Shape() {
-    }
-    Sphere(const Material& m) : Shape(m){}
+    TestShape() : Shape() {}
+    TestShape(const Material& m) : Shape(m) {}
+
+    std::unique_ptr<Ray> savedRay;
+
 
     /*calculate the intersection(s) between this ray and a sphere*/
     std::vector<Intersection> localIntersect(const Ray& r) override;
     Tuple localNormalAt(const Tuple& p) const override;
 
-private:
 
 };

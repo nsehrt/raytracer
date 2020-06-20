@@ -160,6 +160,54 @@ void RayTracerApp::drawFirstScene()
     canvas.save("canvas.ppm");
 }
 
+void RayTracerApp::drawPlanes()
+{
+
+    World w;
+    Camera c(640, 480, PI / 3.0f);
+    c.transform = Matrix<4, 4>::view(Tuple::Point(0, 1.5f, -5), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
+
+    w.pointLights[0].position = Tuple::Point(-10, 10, -10);
+    w.objects.clear();
+
+    auto floor = std::make_shared<Plane>();
+
+    auto wall = std::make_shared<Plane>();
+    wall->transform = Matrix<4, 4>::translation(0, 0, 25) * Matrix<4, 4>::rotateX(PI / 2.0f);
+
+    auto middle = std::make_shared<Sphere>();
+    middle->transform = Matrix<4, 4>::translation(-0.5f, 1, 0.5f);
+    middle->material.color = Color(0.1f, 1, 0.5f);
+    middle->material.diffuse = 0.7f;
+    middle->material.specular = 0.3f;
+
+    auto right = std::make_shared<Sphere>();
+    right->transform = Matrix<4, 4>::translation(1.5f, 0.5, -0.5f) * Matrix<4, 4>::scale(0.5f, 0.5f, 0.5f);
+    right->material.color = Color(0.5f, 1, 0.1f);
+    right->material.diffuse = 0.7f;
+    right->material.specular = 0.3f;
+
+    auto left = std::make_shared<Sphere>();
+    left->transform = Matrix<4, 4>::translation(-1.5f, 0.33f, -0.75f) * Matrix<4, 4>::scale(0.33f, 0.33f, 0.33f);
+    left->material.color = Color(1, 0.8f, 0.1f);
+    left->material.diffuse = 0.7f;
+    left->material.specular = 0.3f;
+
+    w.objects.push_back(floor);
+    w.objects.push_back(wall);
+    w.objects.push_back(middle);
+    w.objects.push_back(right);
+    w.objects.push_back(left);
+
+
+    auto canvas = c.render(w);
+    canvas.save("canvas.ppm");
+
+
+
+
+}
+
 /*clock test*/
     //Canvas canvas(100,100);
     //Tuple canvasCenter = Tuple::Point(50, 50, 50);

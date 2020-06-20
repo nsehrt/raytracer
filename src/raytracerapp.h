@@ -6,6 +6,7 @@
 #include "light.h"
 #include "ray.h"
 #include "sphere.h"
+#include "plane.h"
 
 #include <iostream>
 
@@ -20,6 +21,7 @@ public:
     void drawSphereSilhouette();
     void drawSphereLit();
     void drawFirstScene();
+    void drawPlanes();
 
 private:
 

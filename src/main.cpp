@@ -10,7 +10,8 @@ int main()
 
     //rayTracerApp.drawSphereSilhouette();
     //rayTracerApp.drawSphereLit();
-    rayTracerApp.drawFirstScene();
+    //rayTracerApp.drawFirstScene();
+    rayTracerApp.drawPlanes();
 
     auto end = std::chrono::system_clock::now();
 
