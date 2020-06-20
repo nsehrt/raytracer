@@ -1,7 +1,8 @@
 #pragma once
 
-#include "matrix.h"
 #include "material.h"
+#include "matrix.h"
+#include "intersection.h"
 
 class Shape
 {

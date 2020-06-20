@@ -1,6 +1,9 @@
 #pragma once
 
-#include "shape.h"
+#include "Matrix.h"
+#include "Tuple.h"
+
+class Shape;
 
 struct IntersectionData
 {
