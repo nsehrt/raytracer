@@ -42,6 +42,10 @@ public:
         return Color(scalar * a.x, scalar * a.y, scalar * a.z);
     }
 
+    /*constant colors*/
+    static Color const& White() { static Color color(1.0f, 1.0f, 1.0f); return color; }
+    static Color const& Black() { static Color color(0.0f, 0.0f, 0.0f); return color; }
+
     std::string toString()
     {
         std::stringstream ss;

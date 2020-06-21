@@ -1,6 +1,7 @@
 #pragma once
 
 #include "color.h"
+#include "pattern.h"
 
 class Material
 {
@@ -11,6 +12,7 @@ public:
         diffuse = 0.9f;
         specular = 0.9f;
         shininess = 200.0f;
+        pattern = nullptr;
     };
 
     Material(const Color& _intensity)
@@ -20,10 +22,14 @@ public:
         diffuse = 0.9f;
         specular = 0.9f;
         shininess = 200.0f;
+        pattern = nullptr;
     };
 
     Material(const Color& _intensity, float a, float d, float s, float sh) :
-        color(_intensity), ambient(a), diffuse(d), specular(s), shininess(sh){ }
+        color(_intensity), ambient(a), diffuse(d), specular(s), shininess(sh){ 
+
+        pattern = nullptr;
+    }
 
     ~Material() = default;
 
@@ -50,6 +56,7 @@ public:
     float diffuse;
     float specular;
     float shininess;
+    Pattern* pattern;
 
 private:
 

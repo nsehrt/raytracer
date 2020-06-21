@@ -63,6 +63,9 @@
     <ClInclude Include="src\plane.h">
       <Filter>Source Files\src</Filter>
     </ClInclude>
+    <ClInclude Include="src\pattern.h">
+      <Filter>Source Files\src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -90,6 +93,9 @@
       <Filter>Source Files\src</Filter>
     </ClCompile>
     <ClCompile Include="src\camera.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
   </ItemGroup>

@@ -7,6 +7,7 @@
 #include "ray.h"
 #include "sphere.h"
 #include "plane.h"
+#include "pattern.h"
 
 #include <iostream>
 

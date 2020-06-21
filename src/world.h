@@ -39,7 +39,7 @@ public:
     {
         bool shadowed = isShadowed(i.overPoint);
 
-        return lighting(i.object->material, pointLights[0], i.overPoint, i.eyeV, i.normalV, shadowed);
+        return lighting(i.object->material, i.object, pointLights[0], i.overPoint, i.eyeV, i.normalV, shadowed);
     }
 
 

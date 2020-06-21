@@ -96,7 +96,7 @@ void RayTracerApp::drawSphereLit()
                 Tuple normal = hit.object->normalAt(point);
                 Tuple eye = -r.direction;
 
-                Color out = lighting(hit.object->material, light, point, eye, normal, false);
+                Color out = lighting(hit.object->material, s.get(), light, point, eye, normal, false);
 
                 canvas.writePixel(x, y, out);
             }
@@ -164,7 +164,7 @@ void RayTracerApp::drawPlanes()
 {
 
     World w;
-    Camera c(1920, 1080, PI / 3.0f);
+    Camera c(640, 480, PI / 3.0f);
     c.transform = Matrix<4, 4>::view(Tuple::Point(0, 1.5f, -5), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
 
     w.pointLights[0].position = Tuple::Point(-10, 10, -10);
@@ -172,14 +172,31 @@ void RayTracerApp::drawPlanes()
 
     auto floor = std::make_shared<Plane>();
 
+    auto patternf = std::make_shared<RingPattern>(Color(1, 0.5f, 0.5f), Color(0.698f, 0.439f, 1));
+    patternf->transform = Matrix<4, 4>::rotateY(PI / 3.0f);
+
+    floor->material.pattern = patternf.get();
+
     auto wall = std::make_shared<Plane>();
     wall->transform = Matrix<4, 4>::translation(0, 0, 25) * Matrix<4, 4>::rotateX(PI / 2.0f);
+    wall->material.specular = 0.0f;
+
+    auto pattern = std::make_shared<CheckerPattern>();
+    pattern->a = Color(0.65f, 0.65f, 0.65f);
+    pattern->b = Color(0.3f, 0.3f, 0.3f);
+
+    wall->material.pattern = pattern.get();
 
     auto middle = std::make_shared<Sphere>();
     middle->transform = Matrix<4, 4>::translation(-0.5f, 1, 0.5f);
     middle->material.color = Color(0.1f, 1, 0.5f);
     middle->material.diffuse = 0.7f;
     middle->material.specular = 0.3f;
+
+    auto patterna = std::make_shared<GradientPattern>(Color(1,0.5f,0.5f), Color(0.941f, 1, 0.141f));
+    patterna->transform = Matrix<4, 4>::scale(2.0f, 2.0f, 2.0f) * Matrix<4, 4>::rotateY(PI/2.5f);
+
+    middle->material.pattern = patterna.get();
 
     auto right = std::make_shared<Sphere>();
     right->transform = Matrix<4, 4>::translation(1.5f, 0.5, -0.5f) * Matrix<4, 4>::scale(0.5f, 0.5f, 0.5f);

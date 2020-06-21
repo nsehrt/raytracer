@@ -26,6 +26,7 @@
     <ClInclude Include="src\light.h" />
     <ClInclude Include="src\material.h" />
     <ClInclude Include="src\matrix.h" />
+    <ClInclude Include="src\pattern.h" />
     <ClInclude Include="src\plane.h" />
     <ClInclude Include="src\ray.h" />
     <ClInclude Include="src\raytracerapp.h" />
@@ -39,6 +40,7 @@
     <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\canvas.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\pattern.cpp" />
     <ClCompile Include="src\plane.cpp" />
     <ClCompile Include="src\ray.cpp" />
     <ClCompile Include="src\raytracerapp.cpp" />

@@ -31,11 +31,21 @@ private:
 
 };
 
-static Color lighting(const Material& mat, const PointLight& light, const Tuple& pos,  const Tuple& eyeVector, const Tuple& normalVector, bool inShadow)
+static Color lighting(const Material& mat, const Shape* object, const PointLight& light, const Tuple& pos,  const Tuple& eyeVector, const Tuple& normalVector, bool inShadow)
 {
     Color ambient, diffuse, specular;
+    Color col;
 
-    const Color effectiveColor = mat.color * light.intensity;
+    if (mat.pattern != nullptr)
+    {
+        col = mat.pattern->patternAtShape(object, pos);
+    }
+    else
+    {
+        col = mat.color;
+    }
+
+    const Color effectiveColor = col * light.intensity;
 
     const Tuple lightV = (light.position - pos).normalize();
     ambient = effectiveColor * mat.ambient;
