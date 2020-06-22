@@ -10,7 +10,6 @@ public:
 
     Ray* savedRay = nullptr;
 
-    /*calculate the intersection(s) between this ray and a sphere*/
     std::vector<Intersection> localIntersect(const Ray& r) override;
     Tuple localNormalAt(const Tuple& p) const override;
 
