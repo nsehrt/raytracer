@@ -75,6 +75,9 @@
     <ClInclude Include="src\cone.h">
       <Filter>Source Files\src</Filter>
     </ClInclude>
+    <ClInclude Include="src\group.h">
+      <Filter>Source Files\src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -114,6 +117,9 @@
       <Filter>Source Files\src</Filter>
     </ClCompile>
     <ClCompile Include="src\cone.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\group.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
   </ItemGroup>

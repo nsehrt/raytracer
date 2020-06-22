@@ -10,6 +10,7 @@
 #include "cube.h"
 #include "cylinder.h"
 #include "cone.h"
+#include "group.h"
 #include "pattern.h"
 
 #include <iostream>
@@ -29,5 +30,6 @@ public:
     void drawRefraction();
 
 private:
+
 
 };

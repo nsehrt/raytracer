@@ -164,7 +164,7 @@ void RayTracerApp::drawPlanes()
 {
 
     World w;
-    Camera c(640, 480, PI / 3.0f);
+    Camera c(1920, 1080, PI / 3.0f);
     c.transform = Matrix<4, 4>::view(Tuple::Point(0, 2.5f, -5), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
 
     w.pointLights[0].position = Tuple::Point(-10, 10, -10);
@@ -189,7 +189,7 @@ void RayTracerApp::drawPlanes()
     wall->material.pattern = pattern.get();
 
     auto middle = std::make_shared<Sphere>();
-    middle->transform = Matrix<4, 4>::translation(-0.5f, 1, 0.5f);
+    middle->transform = Matrix<4, 4>::translation(-0.5f, 2, 0.5f);
     middle->material.color = Color(1, 1, 1);
     middle->material.diffuse = 0.3f;
     middle->material.specular = 0.15f;
@@ -197,14 +197,27 @@ void RayTracerApp::drawPlanes()
     middle->material.refractiveIndex = 1.5f;
     middle->material.reflective = 0.5f;
 
+
+    auto smiddle = std::make_shared<Sphere>();
+    smiddle->transform = Matrix<4, 4>::translation(-0.5f, 2.0f, 0.5f) * Matrix<4, 4>::scale(0.5f, 0.5f, 0.5f);
+    smiddle->material.color = Color(1, 1, 1);
+    smiddle->material.diffuse = 0.3f;
+    smiddle->material.specular = 0.15f;
+    smiddle->material.transparency = 1.0f;
+    smiddle->material.refractiveIndex = 1.0002f;
+    smiddle->material.reflective = 0.9f;
+
     auto right = std::make_shared<Cone>();
     right->minimum = -1;
     right->maximum = 0;
     right->closed = true;
     right->transform = Matrix<4, 4>::scale(1.0f, 2.5f, 1.0f) * Matrix<4, 4>::translation(1.0f, 1.0f, 3.5f);
     right->material.color = Color(0.5f, 1, 0.8f);
-    right->material.diffuse = 0.7f;
+    right->material.diffuse = 0.3f;
     right->material.specular = 0.3f;
+    right->material.reflective = 0.45f;
+    right->material.transparency = 0.77f;
+    right->material.refractiveIndex = 2.44f;
     //right->material.pattern = pattern.get();
 
     auto left = std::make_shared<Sphere>();
@@ -213,12 +226,13 @@ void RayTracerApp::drawPlanes()
     left->material.diffuse = 0.7f;
     left->material.specular = 0.3f;
 
+
     w.objects.push_back(floor);
     w.objects.push_back(wall);
     w.objects.push_back(middle);
+    w.objects.push_back(smiddle);
     w.objects.push_back(right);
     w.objects.push_back(left);
-
 
     auto canvas = c.render(w);
     canvas.save("canvas.ppm");
@@ -270,6 +284,7 @@ void RayTracerApp::drawRefraction()
     canvas.save("canvas.ppm");
 
 }
+
 
 /*clock test*/
     //Canvas canvas(100,100);

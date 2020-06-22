@@ -25,6 +25,7 @@
     <ClInclude Include="src\cone.h" />
     <ClInclude Include="src\cube.h" />
     <ClInclude Include="src\cylinder.h" />
+    <ClInclude Include="src\group.h" />
     <ClInclude Include="src\intersection.h" />
     <ClInclude Include="src\light.h" />
     <ClInclude Include="src\material.h" />
@@ -45,6 +46,7 @@
     <ClCompile Include="src\cone.cpp" />
     <ClCompile Include="src\cube.cpp" />
     <ClCompile Include="src\cylinder.cpp" />
+    <ClCompile Include="src\group.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\pattern.cpp" />
     <ClCompile Include="src\plane.cpp" />

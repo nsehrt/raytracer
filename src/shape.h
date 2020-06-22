@@ -30,6 +30,10 @@ public:
 
     Tuple normalAt(const Tuple& p) const;
 
+    Tuple worldToObject(const Tuple& point)const;
+    Tuple normalToWorld(const Tuple& point)const;
+
+
 
     bool operator==(const Shape& s) const
     {
@@ -43,6 +47,7 @@ public:
 
     Material material;
     Matrix<4, 4> transform;
+    Shape* parent = nullptr;
 
     virtual std::vector<Intersection> localIntersect(const Ray& r) = 0;
     virtual Tuple localNormalAt(const Tuple& p) const = 0;
