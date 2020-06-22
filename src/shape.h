@@ -30,6 +30,17 @@ public:
 
     Tuple normalAt(const Tuple& p) const;
 
+
+    bool operator==(const Shape& s) const
+    {
+        return material == s.material && transform == s.transform;
+    }
+
+    bool operator!=(const Shape& s) const
+    {
+        return !operator==(s);
+    }
+
     Material material;
     Matrix<4, 4> transform;
 

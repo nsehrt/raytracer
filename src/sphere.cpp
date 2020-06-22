@@ -5,8 +5,6 @@ std::vector<Intersection> Sphere::localIntersect(const Ray& r)
 {
     std::vector<Intersection> intersection(0);
 
-    //Ray rTrf = WorldInverse() * r;
-
     Tuple sphereToRay = r.origin - Tuple::Point(0, 0, 0);
 
     float a = r.direction.dot(r.direction);
@@ -37,4 +35,13 @@ std::vector<Intersection> Sphere::localIntersect(const Ray& r)
 Tuple Sphere::localNormalAt(const Tuple& p) const
 {
     return Tuple::Vector(p.x, p.y, p.z);
+}
+
+Sphere Sphere::getGlassSphere()
+{
+    Sphere g;
+    g.material.transparency = 1.0f;
+    g.material.refractiveIndex = 1.5;
+
+    return g;
 }

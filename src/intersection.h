@@ -12,7 +12,11 @@ struct IntersectionData
     Tuple point;
     Tuple eyeV;
     Tuple normalV;
+    Tuple reflectV;
+    float n1 = 0.0f;
+    float n2 = 0.0f;
     Tuple overPoint;
+    Tuple underPoint;
 };
 
 class Intersection
@@ -51,6 +55,31 @@ public:
         std::vector<Intersection> xs{ args... };
         std::sort(xs.begin(), xs.end());
         return xs;
+    }
+
+    static float schlick(const IntersectionData& comps)
+    {
+        float cos = comps.eyeV.dot(comps.normalV);
+
+        if (comps.n1 > comps.n2)
+        {
+            float n = comps.n1 / comps.n2;
+            float sin2t = (n * n) * (1.0f - (cos * cos));
+
+            if (sin2t > 1.0f)
+            {
+                return 1.0f;
+            }
+
+            float cost = std::sqrt(1.0f - sin2t);
+            cos = cost;
+
+        }
+
+        float r0 = ((comps.n1 - comps.n2) / (comps.n1 + comps.n2)) * ((comps.n1 - comps.n2) / (comps.n1 + comps.n2));
+
+
+        return r0 + (1 - r0) * std::pow((1.0f - cos), 5.0f);
     }
 
     /*overloads*/

@@ -26,7 +26,7 @@ public:
         return origin + direction * t;
     }
 
-    IntersectionData precompute(const Intersection& i) const;
+    IntersectionData precompute(const Intersection& i, const std::vector<Intersection>& xs = {}) const;
 
     /*transform with matrix*/
     Ray transform(const Matrix<4,4>& m) const

@@ -12,6 +12,9 @@ public:
         diffuse = 0.9f;
         specular = 0.9f;
         shininess = 200.0f;
+        reflective = 0.0f;
+        refractiveIndex = 1.0f;
+        transparency = 0.0f;
         pattern = nullptr;
     };
 
@@ -22,12 +25,17 @@ public:
         diffuse = 0.9f;
         specular = 0.9f;
         shininess = 200.0f;
+        reflective = 0.0f;
+        refractiveIndex = 1.0f;
+        transparency = 0.0f;
         pattern = nullptr;
     };
 
-    Material(const Color& _intensity, float a, float d, float s, float sh) :
-        color(_intensity), ambient(a), diffuse(d), specular(s), shininess(sh){ 
+    Material(const Color& _intensity, float a, float d, float s, float sh, float r) :
+        color(_intensity), ambient(a), diffuse(d), specular(s), shininess(sh), reflective(r){ 
 
+        refractiveIndex = 1.0f;
+        transparency = 0.0f;
         pattern = nullptr;
     }
 
@@ -56,6 +64,11 @@ public:
     float diffuse;
     float specular;
     float shininess;
+    float reflective;
+    float transparency;
+    float refractiveIndex;
+
+
     Pattern* pattern;
 
 private:

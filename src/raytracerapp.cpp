@@ -164,21 +164,22 @@ void RayTracerApp::drawPlanes()
 {
 
     World w;
-    Camera c(640, 480, PI / 3.0f);
-    c.transform = Matrix<4, 4>::view(Tuple::Point(0, 1.5f, -5), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
+    Camera c(1920, 1080, PI / 3.0f);
+    c.transform = Matrix<4, 4>::view(Tuple::Point(0, 2.5f, -5), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
 
     w.pointLights[0].position = Tuple::Point(-10, 10, -10);
     w.objects.clear();
 
     auto floor = std::make_shared<Plane>();
 
-    auto patternf = std::make_shared<RingPattern>(Color(1, 0.5f, 0.5f), Color(0.698f, 0.439f, 1));
-    patternf->transform = Matrix<4, 4>::rotateY(PI / 3.0f);
-
+    auto patternf = std::make_shared<CheckerPattern>();
+    patternf->a = Color(0.65f, 0.65f, 0.65f);
+    patternf->b = Color(0.3f, 0.3f, 0.3f);
     floor->material.pattern = patternf.get();
 
     auto wall = std::make_shared<Plane>();
-    wall->transform = Matrix<4, 4>::translation(0, 0, 25) * Matrix<4, 4>::rotateX(PI / 2.0f);
+    wall->transform = Matrix<4, 4>::translation(0, 0, 15) * Matrix<4, 4>::rotateX(PI / 2.0f);
+    wall->material.reflective = 1.0f;
     wall->material.specular = 0.0f;
 
     auto pattern = std::make_shared<CheckerPattern>();
@@ -189,17 +190,16 @@ void RayTracerApp::drawPlanes()
 
     auto middle = std::make_shared<Sphere>();
     middle->transform = Matrix<4, 4>::translation(-0.5f, 1, 0.5f);
-    middle->material.color = Color(0.1f, 1, 0.5f);
-    middle->material.diffuse = 0.7f;
-    middle->material.specular = 0.3f;
-
-    auto patterna = std::make_shared<GradientPattern>(Color(1,0.5f,0.5f), Color(0.941f, 1, 0.141f));
-    patterna->transform = Matrix<4, 4>::scale(2.0f, 2.0f, 2.0f) * Matrix<4, 4>::rotateY(PI/2.5f);
-
-    middle->material.pattern = patterna.get();
+    middle->material.color = Color(1, 1, 1);
+    middle->material.diffuse = 0.3f;
+    middle->material.specular = 0.15f;
+    middle->material.transparency = 0.9f;
+    middle->material.refractiveIndex = 1.5f;
+    middle->material.reflective = 0.5f;
+    //middle->material.pattern = patterna.get();
 
     auto right = std::make_shared<Sphere>();
-    right->transform = Matrix<4, 4>::translation(1.5f, 0.5, -0.5f) * Matrix<4, 4>::scale(0.5f, 0.5f, 0.5f);
+    right->transform = Matrix<4, 4>::translation(0.0f, 0.5, 1.5f) * Matrix<4, 4>::scale(0.5f, 0.5f, 0.5f);
     right->material.color = Color(0.5f, 1, 0.1f);
     right->material.diffuse = 0.7f;
     right->material.specular = 0.3f;
@@ -222,6 +222,49 @@ void RayTracerApp::drawPlanes()
 
 
 
+
+}
+
+void RayTracerApp::drawRefraction()
+{
+
+
+    World w;
+    Camera c(640, 480, PI / 3.0f);
+    c.transform = Matrix<4, 4>::view(Tuple::Point(0, 1.5f, -5), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
+
+    w.pointLights[0].position = Tuple::Point(-10, 10, -10);
+    w.objects.clear();
+
+    auto floor = std::make_shared<Plane>();
+
+    auto wall = std::make_shared<Plane>();
+    wall->transform = Matrix<4, 4>::translation(0, 0, 2) * Matrix<4, 4>::scale(40,40,0.01f);
+
+    auto pattern = std::make_shared<CheckerPattern>();
+    pattern->a = Color(0.65f, 0.65f, 0.65f);
+    pattern->b = Color(0.3f, 0.3f, 0.3f);
+
+    wall->material.pattern = pattern.get();
+
+    auto middle = std::make_shared<Sphere>();
+
+    middle->material.color = Color(1.0f,1.0f,1.0f);
+    middle->material.ambient = 0.1f;
+    middle->material.diffuse = 0.9f;
+    middle->material.specular = 0.9f;
+    middle->material.shininess = 200.0f;
+    middle->material.transparency = 0.9f;
+    middle->material.refractiveIndex = 1.5f;
+    middle->material.reflective = 0.1f;
+
+    w.objects.push_back(floor);
+    w.objects.push_back(wall);
+    w.objects.push_back(middle);
+
+
+    auto canvas = c.render(w);
+    canvas.save("canvas.ppm");
 
 }
 

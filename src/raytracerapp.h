@@ -23,6 +23,7 @@ public:
     void drawSphereLit();
     void drawFirstScene();
     void drawPlanes();
+    void drawRefraction();
 
 private:
 

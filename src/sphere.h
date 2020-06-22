@@ -13,6 +13,7 @@ public:
     std::vector<Intersection> localIntersect(const Ray& r) override;
     Tuple localNormalAt(const Tuple& p) const override;
 
+    static Sphere getGlassSphere();
 private:
 
 };
