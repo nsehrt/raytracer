@@ -11,9 +11,10 @@ int main()
     //rayTracerApp.drawSphereSilhouette();
     //rayTracerApp.drawSphereLit();
     //rayTracerApp.drawFirstScene();
-    rayTracerApp.drawPlanes();
+    //rayTracerApp.drawPlanes();
     //rayTracerApp.drawRefraction();
     //rayTracerApp.drawCover();
+    rayTracerApp.drawGroup();
 
     auto end = std::chrono::system_clock::now();
 

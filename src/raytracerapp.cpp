@@ -47,7 +47,7 @@ void RayTracerApp::drawSphereSilhouette()
     }
 
 
-    canvas.save("canvas.ppm");
+    canvas.save("canvas.bmp");
 }
 
 void RayTracerApp::drawSphereLit()
@@ -104,7 +104,7 @@ void RayTracerApp::drawSphereLit()
     }
 
 
-    canvas.save("canvas.ppm");
+    canvas.save("canvas.bmp");
 }
 
 void RayTracerApp::drawFirstScene()
@@ -157,7 +157,7 @@ void RayTracerApp::drawFirstScene()
 
 
     auto canvas = c.render(w);
-    canvas.save("canvas.ppm");
+    canvas.save("canvas.bmp");
 }
 
 void RayTracerApp::drawPlanes()
@@ -235,7 +235,7 @@ void RayTracerApp::drawPlanes()
     w.objects.push_back(left);
 
     auto canvas = c.render(w);
-    canvas.save("canvas.ppm");
+    canvas.save("canvas.bmp");
 
 
 
@@ -281,8 +281,87 @@ void RayTracerApp::drawRefraction()
 
 
     auto canvas = c.render(w);
-    canvas.save("canvas.ppm");
+    canvas.save("canvas.bmp");
 
+}
+
+void RayTracerApp::drawGroup()
+{
+    World w;
+    Camera c(1920, 1080, PI / 3.0f);
+    c.transform = Matrix<4, 4>::view(Tuple::Point(0, 4.5f, -15), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
+
+    w.pointLights[0].position = Tuple::Point(-10, 10, -10);
+    w.objects.clear();
+
+    auto gr = std::make_shared<Group>();
+    auto gr2 = std::make_shared<Group>();
+
+    auto floor = std::make_shared<Plane>();
+
+    auto patternf = std::make_shared<CheckerPattern>();
+    patternf->a = Color(0.65f, 0.65f, 0.65f);
+    patternf->b = Color(0.3f, 0.3f, 0.3f);
+    floor->material.pattern = patternf.get();
+    floor->material.reflective = 0.6f;
+
+    auto wall = std::make_shared<Plane>();
+    wall->transform = Matrix<4, 4>::translation(0, 0, 15) * Matrix<4, 4>::rotateX(PI / 2.0f);
+
+    auto pattern = std::make_shared<CheckerPattern>();
+    pattern->a = Color(0.65f, 0.65f, 0.65f);
+    pattern->b = Color(0.4f, 0.4f, 0.4f);
+    wall->material.pattern = pattern.get();
+    wall->material.color = Color::White();
+    wall->material.diffuse = 0.6f;
+    wall->material.specular = 0.4f;
+
+    auto s = std::make_shared<Sphere>();
+    s->material.color = Color(1.0f, 1,1);
+    s->transform = Matrix<4, 4>::translation(0, 1, 0);
+    s->material.transparency = 1.0f;
+    s->material.refractiveIndex = 1.52f;
+    s->material.diffuse = 0.2f;
+    s->material.specular = 0.3f;
+
+    auto s2 = std::make_shared<Sphere>();
+    s2->material.color = Color(0.4f, 0.2f, 0.8f);
+    s2->transform = Matrix<4, 4>::translation(4, 1, 0);
+
+    auto s3 = std::make_shared<Sphere>();
+    s3->material.color = Color(1.0f, 0.2f, 0.1f);
+    s3->transform = Matrix<4, 4>::translation(-5, 1, 5);
+
+    auto pat = std::make_shared<RingPattern>();
+    pat->a = Color(1, 0.850f, 0.38f);
+    pat->b = Color(0.639f, 1, 0.380f);
+    pat->transform = Matrix<4, 4>::rotateY(-PI / 2.0f);
+
+    auto s4 = std::make_shared<Cone>();
+    s4->transform = Matrix<4, 4>::translation(-15, 1.25, 11) * Matrix<4,4>::rotateZ(PI/2.0f) * Matrix<4, 4>::scale(1, 2, 1);
+    s4->material.color = Color(0.0f,0.64f, 0.2f);
+    s4->closed = true;
+    s4->minimum = 0.0f;
+    s4->maximum = 1.5f;
+    s4->material.pattern = pat.get();
+    s4->material.reflective = 0.7f;
+
+    gr->addChild(floor.get());
+    gr->addChild(wall.get());
+    //gr->transform = Matrix<4, 4>::rotateY(PI / 2.0f);
+
+    gr2->addChild(s.get());
+    gr2->addChild(s2.get());
+    gr2->addChild(s3.get());
+    gr2->addChild(s4.get());
+
+    gr->addChild(gr2.get());
+
+    w.objects.push_back(gr);
+
+
+    auto canvas = c.render(w);
+    canvas.save("canvas.bmp");
 }
 
 

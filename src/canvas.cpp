@@ -1,4 +1,5 @@
 #include "canvas.h"
+#include "bitmap_image.hpp"
 #include <fstream>
 
 Canvas::Canvas(unsigned int w, unsigned int h)
@@ -34,26 +35,23 @@ Color Canvas::getPixel(int x, int y) const
 
 void Canvas::save(const std::string& fileName)
 {
+    bitmap_image file(width, height);
 
-    std::ofstream file(fileName);
+    if (!file)
+        return;
 
-    if (file.is_open())
+    for (unsigned int i = 0; i < height; i++)
     {
-        file << "P3\n" << width << " " << height << "\n255\n";
-
-        for (unsigned int i = 0; i < height; i++)
+        for (unsigned int j = 0; j < width; j++)
         {
-            for (unsigned int j = 0; j < width; j++)
-            {
-                file << getPixel(j, i).toString() << "\n";
-            }
+            auto c = getPixel(j, i);
+            unsigned char r = std::clamp((int)(c.r() / 1.0f * 255), 0, 255);
+            unsigned char g = std::clamp((int)(c.g() / 1.0f * 255), 0, 255);
+            unsigned char b = std::clamp((int)(c.b() / 1.0f * 255), 0, 255);
+            file.set_pixel(j,i, r,g,b);
         }
+    }
 
-        file.close();
-    }
-    else
-    {
-        std::cerr << "Failed to save canvas!" << std::endl;
-    }
+    file.save_image(fileName);
 
 }

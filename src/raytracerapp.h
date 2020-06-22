@@ -28,6 +28,7 @@ public:
     void drawFirstScene();
     void drawPlanes();
     void drawRefraction();
+    void drawGroup();
 
 private:
 
