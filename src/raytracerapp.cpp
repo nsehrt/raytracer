@@ -188,7 +188,7 @@ void RayTracerApp::drawPlanes()
 
     wall->material.pattern = pattern.get();
 
-    auto middle = std::make_shared<Cube>();
+    auto middle = std::make_shared<Sphere>();
     middle->transform = Matrix<4, 4>::translation(-0.5f, 1, 0.5f);
     middle->material.color = Color(1, 1, 1);
     middle->material.diffuse = 0.3f;
@@ -196,13 +196,16 @@ void RayTracerApp::drawPlanes()
     middle->material.transparency = 0.9f;
     middle->material.refractiveIndex = 1.5f;
     middle->material.reflective = 0.5f;
-    //middle->material.pattern = patterna.get();
 
-    auto right = std::make_shared<Sphere>();
-    right->transform = Matrix<4, 4>::translation(0.0f, 0.5, 1.5f) * Matrix<4, 4>::scale(0.5f, 0.5f, 0.5f);
-    right->material.color = Color(0.5f, 1, 0.1f);
+    auto right = std::make_shared<Cone>();
+    right->minimum = -1;
+    right->maximum = 0;
+    right->closed = true;
+    right->transform = Matrix<4, 4>::scale(1.0f, 2.5f, 1.0f) * Matrix<4, 4>::translation(1.0f, 1.0f, 3.5f);
+    right->material.color = Color(0.5f, 1, 0.8f);
     right->material.diffuse = 0.7f;
     right->material.specular = 0.3f;
+    //right->material.pattern = pattern.get();
 
     auto left = std::make_shared<Sphere>();
     left->transform = Matrix<4, 4>::translation(-1.5f, 0.33f, -0.75f) * Matrix<4, 4>::scale(0.33f, 0.33f, 0.33f);

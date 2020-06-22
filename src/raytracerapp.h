@@ -8,6 +8,8 @@
 #include "sphere.h"
 #include "plane.h"
 #include "cube.h"
+#include "cylinder.h"
+#include "cone.h"
 #include "pattern.h"
 
 #include <iostream>

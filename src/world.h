@@ -73,7 +73,6 @@ public:
         return  (hit && hit.time < distance);
     }
 
-
     Color colorAt(const Ray& r, int remaining = 5) const
     {
 

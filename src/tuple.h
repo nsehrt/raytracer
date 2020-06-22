@@ -4,7 +4,7 @@
 #include <iostream>
 #include <assert.h>
 
-#define EPSILON 0.00001f
+#define EPSILON 0.0001f
 
 class Tuple
 {
