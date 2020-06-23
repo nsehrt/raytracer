@@ -93,7 +93,7 @@ void RayTracerApp::drawSphereLit()
             if (hit)
             {
                 Tuple point = r.position(hit.time);
-                Tuple normal = hit.object->normalAt(point);
+                Tuple normal = hit.object->normalAt(point, hit);
                 Tuple eye = -r.direction;
 
                 Color out = lighting(hit.object->material, s.get(), light, point, eye, normal, false);
@@ -364,7 +364,7 @@ void RayTracerApp::drawGroup()
 void RayTracerApp::drawTeaPot()
 {
     World w;
-    Camera c(200, 200, PI / 3.0f);
+    Camera c(1920, 1080, PI / 3.0f);
     c.transform = Matrix<4, 4>::view(Tuple::Point(0, 8.5f, -20), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
 
     w.pointLights[0].position = Tuple::Point(-10, 10, -10);
@@ -390,13 +390,33 @@ void RayTracerApp::drawTeaPot()
     wall->material.specular = 0.4f;
 
 
+    auto s = std::make_shared<Sphere>();
+    s->material.color = Color(1.0f, 1, 1);
+    s->transform = Matrix<4, 4>::translation(-2, 1, 1);
+    s->material.transparency = 1.0f;
+    s->material.refractiveIndex = 1.52f;
+    s->material.diffuse = 0.2f;
+    s->material.specular = 0.3f;
+
+    auto s2 = std::make_shared<Sphere>();
+    s2->material.color = Color(0.4f, 0.2f, 0.8f);
+    s2->transform = Matrix<4, 4>::translation(2, 1, -1);
+
+    auto s3 = std::make_shared<Sphere>();
+    s3->material.color = Color(1.0f, 0.2f, 0.1f);
+    s3->transform = Matrix<4, 4>::translation(0, 1, 4);
+
     WaveFront load;
     load.parseObjFile("teapot.obj");
 
-    load.defaultGroup->transform = Matrix<4,4>::rotateY(PI/6.0f) * Matrix<4, 4>::rotateX(-PI / 2.0f) * Matrix<4, 4>::scale(0.5f, 0.5f, 0.5f);
+    load.defaultGroup->transform = Matrix<4,4>::rotateY(PI/5.0f) * Matrix<4, 4>::rotateX(-PI / 2.0f) * Matrix<4, 4>::scale(0.5f, 0.5f, 0.5f);
+    load.defaultGroup->material = Color(0.8f, 0.2f, 0.3f);
 
     w.objects.push_back(floor);
     w.objects.push_back(wall);
+    //w.objects.push_back(s);
+    //w.objects.push_back(s2);
+    //w.objects.push_back(s3);
     w.objects.push_back(load.defaultGroup);
 
     auto canvas = c.render(w);

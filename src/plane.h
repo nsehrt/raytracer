@@ -11,7 +11,7 @@ public:
     Ray* savedRay = nullptr;
 
     std::vector<Intersection> localIntersect(const Ray& r) override;
-    Tuple localNormalAt(const Tuple& p) const override;
+    Tuple localNormalAt(const Tuple& p, const Intersection& i) const override;
 
 private:
 

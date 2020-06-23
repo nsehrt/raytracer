@@ -54,7 +54,7 @@ std::vector<Intersection> Cylinder::localIntersect(const Ray& r)
     return xs;
 }
 
-Tuple Cylinder::localNormalAt(const Tuple& p) const
+Tuple Cylinder::localNormalAt(const Tuple& p, const Intersection& i) const
 {
     float distance = p.x * p.x + p.z * p.z;
 

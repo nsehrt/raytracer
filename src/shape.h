@@ -28,12 +28,13 @@ public:
 
     std::vector<Intersection> intersect(const Ray& r);
 
-    Tuple normalAt(const Tuple& p) const;
+    Tuple normalAt(const Tuple& p, const Intersection& i) const;
 
     Tuple worldToObject(const Tuple& point)const;
     Tuple normalToWorld(const Tuple& point)const;
 
 
+    Material getMaterial();
 
     bool operator==(const Shape& s) const
     {
@@ -50,7 +51,7 @@ public:
     Shape* parent = nullptr;
 
     virtual std::vector<Intersection> localIntersect(const Ray& r) = 0;
-    virtual Tuple localNormalAt(const Tuple& p) const = 0;
+    virtual Tuple localNormalAt(const Tuple& p, const Intersection& i) const = 0;
 
 protected:
 

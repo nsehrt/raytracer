@@ -7,10 +7,10 @@ std::vector<Intersection> Shape::intersect(const Ray& r)
         return localIntersect(localRay);
 }
 
-Tuple Shape::normalAt(const Tuple& p) const
+Tuple Shape::normalAt(const Tuple& p, const Intersection& i) const
 {
     auto localPoint = worldToObject(p);
-    auto localNormal = localNormalAt(localPoint);
+    auto localNormal = localNormalAt(localPoint, i);
 
     return normalToWorld(localNormal);
 }
@@ -28,4 +28,17 @@ Tuple Shape::normalToWorld(const Tuple& point) const
     n = n.normalize();
 
     return (parent == nullptr) ? n : parent->normalToWorld(n);
+}
+
+Material Shape::getMaterial()
+{
+    if (parent == nullptr)
+    {
+        return material;
+    }
+    else
+    {
+        return parent->getMaterial();
+    }
+
 }

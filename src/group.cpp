@@ -26,7 +26,7 @@ std::vector<Intersection> Group::localIntersect(const Ray& r)
     return xs;
 }
 
-Tuple Group::localNormalAt(const Tuple& p) const
+Tuple Group::localNormalAt(const Tuple& p, const Intersection& i) const
 {
     std::cerr << "do not call this" << std::endl;
     return Tuple();

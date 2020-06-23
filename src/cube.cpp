@@ -15,7 +15,7 @@ std::vector<Intersection> Cube::localIntersect(const Ray& r)
     return Intersection::intersections(Intersection(tMin, this), Intersection(tMax, this));
 }
 
-Tuple Cube::localNormalAt(const Tuple& p) const
+Tuple Cube::localNormalAt(const Tuple& p, const Intersection& i) const
 {
     float maxC = std::max(std::abs(p.x), std::max(std::abs(p.y), std::abs(p.z)));
 

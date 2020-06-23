@@ -59,7 +59,7 @@ std::vector<Intersection> Cone::localIntersect(const Ray& r)
     return xs;
 }
 
-Tuple Cone::localNormalAt(const Tuple& p) const
+Tuple Cone::localNormalAt(const Tuple& p, const Intersection& i) const
 {
     float distance = p.x * p.x + p.z * p.z;
 

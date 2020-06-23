@@ -16,7 +16,7 @@ std::vector<Intersection> Plane::localIntersect(const Ray& r)
     return intersection;
 }
 
-Tuple Plane::localNormalAt(const Tuple& p) const
+Tuple Plane::localNormalAt(const Tuple& p, const Intersection& i) const
 {
     return Tuple::Vector(0,1,0);
 }

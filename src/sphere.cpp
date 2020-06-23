@@ -32,7 +32,7 @@ std::vector<Intersection> Sphere::localIntersect(const Ray& r)
     return intersection;
 }
 
-Tuple Sphere::localNormalAt(const Tuple& p) const
+Tuple Sphere::localNormalAt(const Tuple& p, const Intersection& i) const
 {
     return Tuple::Vector(p.x, p.y, p.z);
 }

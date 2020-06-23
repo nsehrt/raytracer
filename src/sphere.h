@@ -11,7 +11,7 @@ public:
 
     /*calculate the intersection(s) between this ray and a sphere*/
     std::vector<Intersection> localIntersect(const Ray& r) override;
-    Tuple localNormalAt(const Tuple& p) const override;
+    Tuple localNormalAt(const Tuple& p, const Intersection& i) const override;
 
     static Sphere getGlassSphere();
 private:

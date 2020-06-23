@@ -30,6 +30,14 @@ public:
         object = s;
     }
 
+    Intersection(float t, Shape* s, float _u, float _v)
+    {
+        time = t;
+        object = s;
+        u = _u;
+        v = _v;
+    }
+
     ~Intersection() = default;
 
 
@@ -111,6 +119,8 @@ public:
 
     /*member variables*/
     float time = 0.0f;
+    float u = 0.0f;
+    float v = 0.0f;
     Shape* object = nullptr;
 
 private:

@@ -39,7 +39,7 @@ public:
     {
         bool shadowed = isShadowed(i.overPoint);
 
-        auto surface = lighting(i.object->material, i.object, pointLights[0], i.overPoint, i.eyeV, i.normalV, shadowed);
+        auto surface = lighting(i.object->getMaterial(), i.object, pointLights[0], i.overPoint, i.eyeV, i.normalV, shadowed);
 
         auto reflected = reflectedColor(i, remaining);
         auto refracted = refractedColor(i, remaining);

@@ -11,7 +11,7 @@ public:
     Cone(const Material& m) : Shape(m) {}
 
     std::vector<Intersection> localIntersect(const Ray& r) override;
-    Tuple localNormalAt(const Tuple& p) const override;
+    Tuple localNormalAt(const Tuple& p, const Intersection& i) const override;
 
     float minimum = -std::numeric_limits<float>::infinity();
     float maximum = std::numeric_limits<float>::infinity();

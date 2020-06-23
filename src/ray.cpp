@@ -10,7 +10,7 @@ IntersectionData Ray::precompute(const Intersection& i, const std::vector<Inters
         comps.object = i.object;
         comps.point = position(comps.time);
         comps.eyeV = -direction;
-        comps.normalV = comps.object->normalAt(comps.point);
+        comps.normalV = comps.object->normalAt(comps.point, i);
 
         if (comps.normalV.dot(comps.eyeV) < 0.0f)
         {

@@ -20,7 +20,7 @@ public:
     void addChild(std::shared_ptr<Shape> s);
 
     std::vector<Intersection> localIntersect(const Ray& r) override;
-    Tuple localNormalAt(const Tuple& p) const override;
+    Tuple localNormalAt(const Tuple& p, const Intersection& i) const override;
 
     std::vector<std::shared_ptr<Shape>> children;
     std::string name;
