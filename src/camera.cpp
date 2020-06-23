@@ -1,5 +1,6 @@
 #include "camera.h"
 #include <thread>
+#include <iomanip>
 
 Ray Camera::rayForPixel(const int x, const int y) const
 {
@@ -46,10 +47,17 @@ Canvas Camera::render(const World& w)
         });
     }
 
+    std::cout << "0.00%" << std::flush;
+
+    int n = 0;
     for (auto& t : threads)
     {
         t.join();
+        n += 1;
+
+        std::cout << "\r" << std::fixed << std::setprecision(2) << ((n / (float)threadCount) * 100.0f) << "%" << std::flush;
     }
+    std::cout << "\r" << "100.00%\n\n" << std::flush;
 
     return image;
 }

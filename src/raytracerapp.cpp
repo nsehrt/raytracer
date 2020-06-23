@@ -365,7 +365,7 @@ void RayTracerApp::drawTeaPot()
 {
     World w;
     Camera c(1920, 1080, PI / 3.0f);
-    c.transform = Matrix<4, 4>::view(Tuple::Point(0, 8.5f, -20), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
+    c.transform = Matrix<4, 4>::view(Tuple::Point(0, 8.5f, -25), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
 
     w.pointLights[0].position = Tuple::Point(-10, 10, -10);
     w.objects.clear();
@@ -392,32 +392,104 @@ void RayTracerApp::drawTeaPot()
 
     auto s = std::make_shared<Sphere>();
     s->material.color = Color(1.0f, 1, 1);
-    s->transform = Matrix<4, 4>::translation(-2, 1, 1);
+    s->transform = Matrix<4, 4>::translation(-2, 1, -7);
     s->material.transparency = 1.0f;
     s->material.refractiveIndex = 1.52f;
     s->material.diffuse = 0.2f;
     s->material.specular = 0.3f;
 
+    auto s4 = std::make_shared<Sphere>();
+    s4->material = s->material;
+    s4->transform = Matrix<4, 4>::translation(-5.5f, 3, 1.5f);
+
     auto s2 = std::make_shared<Sphere>();
     s2->material.color = Color(0.4f, 0.2f, 0.8f);
-    s2->transform = Matrix<4, 4>::translation(2, 1, -1);
+    s2->transform = Matrix<4, 4>::translation(2, 1, -9);
 
     auto s3 = std::make_shared<Sphere>();
     s3->material.color = Color(1.0f, 0.2f, 0.1f);
-    s3->transform = Matrix<4, 4>::translation(0, 1, 4);
+    s3->transform = Matrix<4, 4>::translation(0, 1, -11);
 
-    WaveFront load;
-    load.parseObjFile("teapot.obj");
+    auto mirror = std::make_shared<Plane>();
+    mirror->transform = Matrix<4, 4>::translation(7, 0, 0) * Matrix<4, 4>::rotateZ(PI / 8.0f) * Matrix<4, 4>::rotateY(PI / 2.0f) * Matrix<4, 4>::rotateX(PI / 2.0f);
+    mirror->material.color = Color(1, 1, 1);
+    mirror->material.reflective = 0.99f;
+    mirror->material.diffuse = 0.2f;
+    mirror->material.specular = 0.2f;
+    mirror->material.ambient = 0.0f;
 
-    load.defaultGroup->transform = Matrix<4,4>::rotateY(PI/5.0f) * Matrix<4, 4>::rotateX(-PI / 2.0f) * Matrix<4, 4>::scale(0.5f, 0.5f, 0.5f);
-    load.defaultGroup->material = Color(0.8f, 0.2f, 0.3f);
+    //WaveFront load;
+    //load.parseObjFile("teapot.obj");
+
+    //load.defaultGroup->transform = Matrix<4, 4>::translation(-2, 0, 1) * Matrix<4,4>::rotateY(PI/5.0f) * Matrix<4, 4>::rotateX(-PI / 2.0f) * Matrix<4, 4>::scale(0.5f, 0.5f, 0.5f);
+    //load.defaultGroup->material = Color(0.8f, 0.2f, 0.3f);
+
+    auto cube1 = std::make_shared<Cube>();
+    auto cube2 = std::make_shared<Cube>();
+    auto cube3 = std::make_shared<Cube>();
+    auto cube4 = std::make_shared<Cube>();
+    auto cube5 = std::make_shared<Cube>();
+
+
+    cube1->transform = Matrix<4, 4>::translation(-2.5f, 1.0f, 3.f);
+    cube2->transform = Matrix<4, 4>::translation(0.25f, 1.0f, 3.f) * Matrix<4, 4>::rotateY(PI / 8.0f);
+    cube3->transform = Matrix<4, 4>::translation(-2.f, 3.0f, 3.25f) * Matrix<4, 4>::rotateY(-PI / 16.0f);
+    cube4->transform = Matrix<4, 4>::translation(-5.5f, 1.0f, 1.25f) * Matrix<4, 4>::rotateY(-PI / 16.0f);
+    cube5->transform = Matrix<4, 4>::translation(-5.f, 1.0f, -3.25f) * Matrix<4, 4>::rotateY(-PI / 4.0f);
+
+    cube1->material.color = Color(0.592f, 0.84f, 0.533f);
+    cube2->material.color = Color(0.117f, 0.741f, 0.862f);
+    cube3->material.color = Color(1.f, 0.764f, 0.180f);
+    cube4->material.color = Color(0.749f, 0.168f, 0.592f);
+    cube5->material.color = Color(0.211f, 0.850f, 0.756f);
+
+    cube1->material.reflective = 0.1f;
+    cube2->material.reflective = 0.1f;
+    cube3->material.reflective = 0.1f;
+    cube4->material.reflective = 0.2f;
+    cube5->material.reflective = 0.2f;
+    
+    auto cyl = std::make_shared<Cylinder>();
+    cyl->minimum = -1;
+    cyl->maximum = 4;
+    cyl->closed = true;
+
+    cyl->material.reflective = 0.95f;
+    cyl->material.diffuse = 0.2f;
+    cyl->material.specular = 0.2f;
+
+    cyl->transform = Matrix<4, 4>::translation(1.5f, 1, -1);
+
+    auto cone1 = std::make_shared<Cone>();
+    cone1->minimum = 0;
+    cone1->maximum = 1;
+    cone1->closed = true;
+
+    auto pc = std::make_shared<GradientPattern>();
+    pc->transform = Matrix<4, 4>::rotateY(PI / 2.0f);
+
+    cone1->material.color = Color(0.752f, 0.858f, 0.121f);
+    cone1->material.pattern = pc.get();
+    cone1->transform = Matrix<4, 4>::translation(0.0f, 2, -3) * Matrix<4, 4>::rotateX(PI) * Matrix<4, 4>::scale(1, 2, 1);
+
+
 
     w.objects.push_back(floor);
     w.objects.push_back(wall);
-    //w.objects.push_back(s);
-    //w.objects.push_back(s2);
-    //w.objects.push_back(s3);
-    w.objects.push_back(load.defaultGroup);
+    w.objects.push_back(s);
+    w.objects.push_back(s2);
+    w.objects.push_back(s3);
+    w.objects.push_back(s4);
+    w.objects.push_back(mirror);
+    //w.objects.push_back(load.defaultGroup);
+
+    w.objects.push_back(cube1);
+    w.objects.push_back(cube2);
+    w.objects.push_back(cube3);
+    w.objects.push_back(cube4);
+    w.objects.push_back(cube5);
+    //w.objects.push_back(cone1);
+    w.objects.push_back(cyl);
 
     auto canvas = c.render(w);
     canvas.save("canvas.bmp");

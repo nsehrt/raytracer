@@ -7,7 +7,7 @@ std::vector<Intersection> Cylinder::localIntersect(const Ray& r)
 
     float a = r.direction.x * r.direction.x + r.direction.z * r.direction.z;
 
-    if (a < EPSILON)
+    if (std::abs(a) < EPSILON)
     {
         intersectCaps(r, xs);
         return xs;

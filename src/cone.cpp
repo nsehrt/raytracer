@@ -5,19 +5,20 @@ std::vector<Intersection> Cone::localIntersect(const Ray& r)
 {
     std::vector<Intersection> xs{};
 
-    float a = r.direction.x * r.direction.x - r.direction.y * r.direction.y + r.direction.z * r.direction.z;
-    float b = 2 * r.origin.x * r.direction.x - 2 * r.origin.y * r.direction.y + 2 * r.origin.z * r.direction.z;
-    float c = r.origin.x * r.origin.x - r.origin.y * r.origin.y + r.origin.z * r.origin.z;
+    auto rN = Ray(r.origin, r.direction.normalize());
 
-    if (a < EPSILON)
+    float a = rN.direction.x * rN.direction.x - rN.direction.y * rN.direction.y + rN.direction.z * rN.direction.z;
+    float b = 2 * rN.origin.x * rN.direction.x - 2 * rN.origin.y * rN.direction.y + 2 * rN.origin.z * rN.direction.z;
+    float c = rN.origin.x * rN.origin.x - rN.origin.y * rN.origin.y + rN.origin.z * rN.origin.z;
+
+    if (std::abs(a) < EPSILON)
     {
-        if (b > EPSILON)
+        if (std::abs(b) >= EPSILON)
         {
-            xs.push_back(Intersection(-c / (2 * b), this));
-            return xs;
+            xs.push_back(Intersection(-c / (2.0f * b), this));
         }
 
-        intersectCaps(r, xs);
+        intersectCaps(rN, xs);
         return xs;
     }
 
@@ -40,21 +41,21 @@ std::vector<Intersection> Cone::localIntersect(const Ray& r)
 
 
 
-    float y0 = r.origin.y + t0 * r.direction.y;
+    float y0 = rN.origin.y + t0 * rN.direction.y;
 
     if (minimum < y0 && y0 < maximum)
     {
         xs.push_back(Intersection(t0, this));
     }
 
-    float y1 = r.origin.y + t1 * r.direction.y;
+    float y1 = rN.origin.y + t1 * rN.direction.y;
 
     if (minimum < y1 && y1 < maximum)
     {
         xs.push_back(Intersection(t1, this));
     }
 
-    intersectCaps(r, xs);
+    intersectCaps(rN, xs);
 
     return xs;
 }
@@ -73,7 +74,7 @@ Tuple Cone::localNormalAt(const Tuple& p, const Intersection& i) const
         return Tuple::Vector(0, -1, 0);
     }
 
-    float y = std::sqrt(p.x * p.x + p.z * p.z);
+    float y = std::sqrt(distance);
     if (p.y > 0.0f) y = -y;
 
     return Tuple::Vector(p.x, y, p.z);
