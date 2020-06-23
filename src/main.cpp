@@ -14,7 +14,7 @@ int main()
     //rayTracerApp.drawPlanes();
     //rayTracerApp.drawRefraction();
     //rayTracerApp.drawCover();
-    rayTracerApp.drawGroup();
+    rayTracerApp.drawTeaPot();
 
     auto end = std::chrono::system_clock::now();
 

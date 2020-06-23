@@ -78,6 +78,12 @@
     <ClInclude Include="src\group.h">
       <Filter>Source Files\src</Filter>
     </ClInclude>
+    <ClInclude Include="src\triangle.h">
+      <Filter>Source Files\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\wavefront.h">
+      <Filter>Source Files\src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -120,6 +126,12 @@
       <Filter>Source Files\src</Filter>
     </ClCompile>
     <ClCompile Include="src\group.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\triangle.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\wavefront.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
   </ItemGroup>

@@ -10,6 +10,8 @@
 #include "cube.h"
 #include "cylinder.h"
 #include "cone.h"
+#include "triangle.h"
+#include "wavefront.h"
 #include "group.h"
 #include "pattern.h"
 
@@ -29,6 +31,7 @@ public:
     void drawPlanes();
     void drawRefraction();
     void drawGroup();
+    void drawTeaPot();
 
 private:
 

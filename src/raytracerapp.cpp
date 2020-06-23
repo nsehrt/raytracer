@@ -337,28 +337,67 @@ void RayTracerApp::drawGroup()
     pat->b = Color(0.639f, 1, 0.380f);
     pat->transform = Matrix<4, 4>::rotateY(-PI / 2.0f);
 
-    auto s4 = std::make_shared<Cone>();
+    auto s4 = std::make_shared<Triangle>(Tuple::Point(0,0,0), Tuple::Point(0.5f, 1, 0), Tuple::Point(1, 0, 0));
     s4->transform = Matrix<4, 4>::translation(-15, 1.25, 11) * Matrix<4,4>::rotateZ(PI/2.0f) * Matrix<4, 4>::scale(1, 2, 1);
     s4->material.color = Color(0.0f,0.64f, 0.2f);
-    s4->closed = true;
-    s4->minimum = 0.0f;
-    s4->maximum = 1.5f;
     s4->material.pattern = pat.get();
     s4->material.reflective = 0.7f;
 
-    gr->addChild(floor.get());
-    gr->addChild(wall.get());
-    //gr->transform = Matrix<4, 4>::rotateY(PI / 2.0f);
+    //gr->addChild(floor.get());
+    //gr->addChild(wall.get());
+    ////gr->transform = Matrix<4, 4>::rotateY(PI / 2.0f);
 
-    gr2->addChild(s.get());
-    gr2->addChild(s2.get());
-    gr2->addChild(s3.get());
-    gr2->addChild(s4.get());
+    //gr2->addChild(s.get());
+    //gr2->addChild(s2.get());
+    //gr2->addChild(s3.get());
+    //gr2->addChild(s4.get());
 
-    gr->addChild(gr2.get());
+    //gr->addChild(gr2.get());
 
     w.objects.push_back(gr);
 
+
+    auto canvas = c.render(w);
+    canvas.save("canvas.bmp");
+}
+
+void RayTracerApp::drawTeaPot()
+{
+    World w;
+    Camera c(200, 200, PI / 3.0f);
+    c.transform = Matrix<4, 4>::view(Tuple::Point(0, 8.5f, -20), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
+
+    w.pointLights[0].position = Tuple::Point(-10, 10, -10);
+    w.objects.clear();
+
+    auto floor = std::make_shared<Plane>();
+
+    auto patternf = std::make_shared<CheckerPattern>();
+    patternf->a = Color(0.65f, 0.65f, 0.65f);
+    patternf->b = Color(0.3f, 0.3f, 0.3f);
+    floor->material.pattern = patternf.get();
+    floor->material.reflective = 0.6f;
+
+    auto wall = std::make_shared<Plane>();
+    wall->transform = Matrix<4, 4>::translation(0, 0, 15) * Matrix<4, 4>::rotateX(PI / 2.0f);
+
+    auto pattern = std::make_shared<CheckerPattern>();
+    pattern->a = Color(0.65f, 0.65f, 0.65f);
+    pattern->b = Color(0.4f, 0.4f, 0.4f);
+    wall->material.pattern = pattern.get();
+    wall->material.color = Color::White();
+    wall->material.diffuse = 0.6f;
+    wall->material.specular = 0.4f;
+
+
+    WaveFront load;
+    load.parseObjFile("teapot.obj");
+
+    load.defaultGroup->transform = Matrix<4,4>::rotateY(PI/6.0f) * Matrix<4, 4>::rotateX(-PI / 2.0f) * Matrix<4, 4>::scale(0.5f, 0.5f, 0.5f);
+
+    w.objects.push_back(floor);
+    w.objects.push_back(wall);
+    w.objects.push_back(load.defaultGroup);
 
     auto canvas = c.render(w);
     canvas.save("canvas.bmp");

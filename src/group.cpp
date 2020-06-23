@@ -1,16 +1,16 @@
 #include "group.h"
 
-void Group::addChild(Shape* s)
+void Group::addChild(std::shared_ptr<Shape> s)
 {
     s->parent = this;
-    children.push_back(s);
+    children.push_back(std::move(s));
 }
 
 std::vector<Intersection> Group::localIntersect(const Ray& r)
 {
     std::vector<Intersection> xs{};
 
-    for (const auto p : children)
+    for (const auto& p : children)
     {
         auto in = p->intersect(r);
 

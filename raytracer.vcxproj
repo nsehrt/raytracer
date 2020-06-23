@@ -37,7 +37,9 @@
     <ClInclude Include="src\shape.h" />
     <ClInclude Include="src\sphere.h" />
     <ClInclude Include="src\testshape.h" />
+    <ClInclude Include="src\triangle.h" />
     <ClInclude Include="src\tuple.h" />
+    <ClInclude Include="src\wavefront.h" />
     <ClInclude Include="src\world.h" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +57,8 @@
     <ClCompile Include="src\shape.cpp" />
     <ClCompile Include="src\sphere.cpp" />
     <ClCompile Include="src\testshape.cpp" />
+    <ClCompile Include="src\triangle.cpp" />
+    <ClCompile Include="src\wavefront.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
