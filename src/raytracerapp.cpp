@@ -364,7 +364,7 @@ void RayTracerApp::drawGroup()
 void RayTracerApp::drawTeaPot()
 {
     World w;
-    Camera c(1920, 1080, PI / 3.0f);
+    Camera c(500, 500, PI / 3.0f);
     c.transform = Matrix<4, 4>::view(Tuple::Point(0, 8.5f, -25), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
 
     w.pointLights[0].position = Tuple::Point(-10, 10, -10);
@@ -418,11 +418,11 @@ void RayTracerApp::drawTeaPot()
     mirror->material.specular = 0.2f;
     mirror->material.ambient = 0.0f;
 
-    //WaveFront load;
-    //load.parseObjFile("teapot.obj");
+    WaveFront load;
+    load.parseObjFile("teapot-low.obj");
 
-    //load.defaultGroup->transform = Matrix<4, 4>::translation(-2, 0, 1) * Matrix<4,4>::rotateY(PI/5.0f) * Matrix<4, 4>::rotateX(-PI / 2.0f) * Matrix<4, 4>::scale(0.5f, 0.5f, 0.5f);
-    //load.defaultGroup->material = Color(0.8f, 0.2f, 0.3f);
+    load.defaultGroup->transform = Matrix<4, 4>::translation(-2, 0, 1) * Matrix<4,4>::rotateY(PI/5.0f) * Matrix<4, 4>::rotateX(-PI / 2.0f) * Matrix<4, 4>::scale(0.5f, 0.5f, 0.5f);
+    load.defaultGroup->material = Color(0.8f, 0.2f, 0.3f);
 
     auto cube1 = std::make_shared<Cube>();
     auto cube2 = std::make_shared<Cube>();
@@ -461,16 +461,13 @@ void RayTracerApp::drawTeaPot()
     cyl->transform = Matrix<4, 4>::translation(1.5f, 1, -1);
 
     auto cone1 = std::make_shared<Cone>();
-    cone1->minimum = 0;
-    cone1->maximum = 1;
-    cone1->closed = true;
-
-    auto pc = std::make_shared<GradientPattern>();
-    pc->transform = Matrix<4, 4>::rotateY(PI / 2.0f);
+    cone1->minimum = -1;
+    cone1->maximum = 0;
+    cone1->closed = false;
 
     cone1->material.color = Color(0.752f, 0.858f, 0.121f);
-    cone1->material.pattern = pc.get();
-    cone1->transform = Matrix<4, 4>::translation(0.0f, 2, -3) * Matrix<4, 4>::rotateX(PI) * Matrix<4, 4>::scale(1, 2, 1);
+    //cone1->material.pattern = pc.get();
+    cone1->transform = Matrix<4, 4>::translation(0.0f, 1, -3) * Matrix<4, 4>::scale(1, 2, 1);
 
 
 
