@@ -96,9 +96,9 @@ void RayTracerApp::drawSphereLit()
                 Tuple normal = hit.object->normalAt(point, hit);
                 Tuple eye = -r.direction;
 
-                Color out = lighting(hit.object->material, s.get(), light, point, eye, normal, false);
+               // Color out = lighting(hit.object->material, s.get(), light, point, eye, normal, false);
 
-                canvas.writePixel(x, y, out);
+                //canvas.writePixel(x, y, out);
             }
         }
     }
@@ -111,10 +111,9 @@ void RayTracerApp::drawFirstScene()
 {
 
     World w;
-    Camera c(480, 320, PI / 3.0f);
+    Camera c(1920, 1080, PI / 3.0f);
     c.transform = Matrix<4, 4>::view(Tuple::Point(0, 1.5f, -5), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
 
-    w.pointLights[0].position = Tuple::Point(-10, 10, -10);
     w.objects.clear();
 
     auto floor = std::make_shared<Sphere>();
@@ -167,7 +166,7 @@ void RayTracerApp::drawPlanes()
     Camera c(1920, 1080, PI / 3.0f);
     c.transform = Matrix<4, 4>::view(Tuple::Point(0, 2.5f, -5), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
 
-    w.pointLights[0].position = Tuple::Point(-10, 10, -10);
+    w.lightSource.position = Tuple::Point(-10, 10, -10);
     w.objects.clear();
 
     auto floor = std::make_shared<Plane>();
@@ -250,7 +249,7 @@ void RayTracerApp::drawRefraction()
     Camera c(640, 480, PI / 3.0f);
     c.transform = Matrix<4, 4>::view(Tuple::Point(0, 1.5f, -5), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
 
-    w.pointLights[0].position = Tuple::Point(-10, 10, -10);
+    w.lightSource.position = Tuple::Point(-10, 10, -10);
     w.objects.clear();
 
     auto floor = std::make_shared<Plane>();
@@ -291,7 +290,7 @@ void RayTracerApp::drawGroup()
     Camera c(1920, 1080, PI / 3.0f);
     c.transform = Matrix<4, 4>::view(Tuple::Point(0, 4.5f, -15), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
 
-    w.pointLights[0].position = Tuple::Point(-10, 10, -10);
+    w.lightSource.position = Tuple::Point(-10, 10, -10);
     w.objects.clear();
 
     auto gr = std::make_shared<Group>();
@@ -364,10 +363,9 @@ void RayTracerApp::drawGroup()
 void RayTracerApp::drawTeaPot()
 {
     World w;
-    Camera c(500, 500, PI / 3.0f);
+    Camera c(1920, 1080, PI / 3.0f);
     c.transform = Matrix<4, 4>::view(Tuple::Point(0, 8.5f, -25), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
 
-    w.pointLights[0].position = Tuple::Point(-10, 10, -10);
     w.objects.clear();
 
     auto floor = std::make_shared<Plane>();

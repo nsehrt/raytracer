@@ -41,8 +41,8 @@ public:
     Ray rayForPixel(const int x, const int y) const;
 
 
-    Canvas render(const World& w);
-    Canvas renderSingle(const World& w);
+    Canvas render(World& w);
+    Canvas renderSingle(World& w);
 
     float pixelSize;
 

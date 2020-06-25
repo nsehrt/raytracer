@@ -10,7 +10,8 @@ class World
 public:
     explicit World()
     {
-        pointLights.push_back(PointLight(Tuple::Point(-10, 10, -10), Color(1, 1, 1)));
+        //lightSource = PointLight(Tuple::Point(-10, 10, -10), Color(1, 1, 1));
+        lightSource = AreaLight(Tuple::Point(-10, 10, -10), Tuple::Vector(1, 0, 0), 10, Tuple::Vector(0, 1, 0), 10, Color(1, 1, 1));
         objects.push_back(std::make_shared<Sphere>(Material(Color(0.8f, 1, 0.6f), 0.1f, 0.7f, 0.2f, 200.f, 0.0f)));
         
         auto s2 = std::make_shared<Sphere>();
@@ -35,11 +36,11 @@ public:
 
 
 
-    Color shadeHit(const IntersectionData& i, int remaining = 5)const
+    Color shadeHit(const IntersectionData& i, int remaining = 5)
     {
-        bool shadowed = isShadowed(i.overPoint);
+        float shadowed = intensityAt(lightSource, i.overPoint);
 
-        auto surface = lighting(i.object->getMaterial(), i.object, pointLights[0], i.overPoint, i.eyeV, i.normalV, shadowed);
+        auto surface = lighting(i.object->getMaterial(), i.object, lightSource, i.overPoint, i.eyeV, i.normalV, shadowed);
 
         auto reflected = reflectedColor(i, remaining);
         auto refracted = refractedColor(i, remaining);
@@ -60,9 +61,9 @@ public:
     }
 
 
-    bool isShadowed(const Tuple& point) const
+    bool isShadowed(const Tuple& lightPos, const Tuple& point) const
     {
-        auto v = pointLights[0].position - point;
+        auto v = lightPos - point;
         auto distance = v.magnitude();
         auto direction = v.normalize();
 
@@ -73,7 +74,7 @@ public:
         return  (hit && hit.time < distance);
     }
 
-    Color colorAt(const Ray& r, int remaining = 5) const
+    Color colorAt(const Ray& r, int remaining = 5)
     {
 
         auto xs = intersects(r);
@@ -90,7 +91,7 @@ public:
     }
 
 
-    Color reflectedColor(const IntersectionData& comps, int remaining = 5) const
+    Color reflectedColor(const IntersectionData& comps, int remaining = 5)
     {
         if (comps.object->material.reflective == 0.0f || remaining < 1)
         {
@@ -104,7 +105,7 @@ public:
     }
 
 
-    Color refractedColor(const IntersectionData& comps, int remaining = 5) const
+    Color refractedColor(const IntersectionData& comps, int remaining = 5) 
     {
         if (comps.object->material.transparency == 0.0f || remaining < 1)
         {
@@ -128,9 +129,33 @@ public:
         return colorAt(refractRay, remaining - 1) * comps.object->material.transparency;
     }
 
-    
+    float intensityAt(const PointLight& p, const Tuple& point)
+    {
+        return isShadowed(p.position, point) ? 0.0f : 1.0f;
+    }
 
-    std::vector<PointLight> pointLights;
+    float intensityAt(AreaLight& p, const Tuple& point)
+    {
+        float total = 0.0f;
+
+        for (int v = 0; v < p.vsteps; v++)
+        {
+            for (int u = 0; u < p.usteps; u++)
+            {
+                auto lightPos = p.pointOnLight(u, v);
+                if (!isShadowed(lightPos, point))
+                {
+                    total += 1.0f;
+                }
+            }
+        }
+
+        return total / (float)p.samples;
+    }
+
+
+    AreaLight lightSource;
+    //PointLight lightSource;
     std::vector<std::shared_ptr<Shape>> objects;
 
 private:

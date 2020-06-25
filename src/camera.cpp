@@ -16,7 +16,7 @@ Ray Camera::rayForPixel(const int x, const int y) const
     return Ray(origin, (pixel - origin).normalize());
 }
 
-Canvas Camera::render(const World& w)
+Canvas Camera::render(World& w)
 {
     Canvas image = Canvas(hSize, vSize);
 
@@ -62,7 +62,7 @@ Canvas Camera::render(const World& w)
     return image;
 }
 
-Canvas Camera::renderSingle(const World& w)
+Canvas Camera::renderSingle(World& w)
 {
         Canvas image = Canvas(hSize, vSize);
 
