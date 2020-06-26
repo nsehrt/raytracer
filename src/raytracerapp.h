@@ -31,7 +31,7 @@ public:
     void drawPlanes();
     void drawRefraction();
     void drawGroup();
-    void drawTeaPot();
+    void drawScene();
 
 private:
 

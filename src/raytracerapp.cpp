@@ -360,10 +360,10 @@ void RayTracerApp::drawGroup()
     canvas.save("canvas.bmp");
 }
 
-void RayTracerApp::drawTeaPot()
+void RayTracerApp::drawScene()
 {
     World w;
-    Camera c(1920, 1080, PI / 3.0f);
+    Camera c(3840, 2160, PI / 3.0f);
     c.transform = Matrix<4, 4>::view(Tuple::Point(0, 8.5f, -25), Tuple::Point(0, 1, 0), Tuple::Vector(0, 1, 0));
 
     w.objects.clear();
@@ -408,6 +408,27 @@ void RayTracerApp::drawTeaPot()
     s3->material.color = Color(1.0f, 0.2f, 0.1f);
     s3->transform = Matrix<4, 4>::translation(0, 1, -11);
 
+    auto s5 = std::make_shared<Sphere>();
+    s5->material = s->material;
+    s5->transform = Matrix<4, 4>::translation(-5.5f, 2, -13) * Matrix<4, 4>::scale(2, 2, 2);
+
+    auto s6 = std::make_shared<Sphere>();
+    s6->material.color = Color(0.2f, 0.662f, 0.058f);
+    s6->transform = Matrix<4, 4>::translation(-9, 2, -1) * Matrix<4,4>::scale(2,2,2);
+
+    auto s7pat = RingPattern();
+    s7pat.a = Color(0.458f, 0, 0.074f);
+    s7pat.b = Color(1, 0.258f, 0.615f);
+    s7pat.transform = Matrix<4, 4>::scale(0.1f, 0.1f, 0.1f);
+    auto s7 = std::make_shared<Sphere>();
+    s7->material.color = Color(0.145f, 0.854f, 0.729f);
+    s7->transform = Matrix<4, 4>::translation(-10.5, 3, 10) * Matrix<4, 4>::scale(3, 3, 3);
+    s7->material.pattern = &s7pat;
+
+    auto s8 = std::make_shared<Sphere>();
+    s8->material.color = Color(0.941f, 0.929f, 0.039f);
+    s8->transform = Matrix<4, 4>::translation(-5, 1, -8);
+
     auto mirror = std::make_shared<Plane>();
     mirror->transform = Matrix<4, 4>::translation(7, 0, 0) * Matrix<4, 4>::rotateZ(PI / 8.0f) * Matrix<4, 4>::rotateY(PI / 2.0f) * Matrix<4, 4>::rotateX(PI / 2.0f);
     mirror->material.color = Color(1, 1, 1);
@@ -442,9 +463,9 @@ void RayTracerApp::drawTeaPot()
     cube5->material.color = Color(0.211f, 0.850f, 0.756f);
 
     cube1->material.reflective = 0.1f;
-    cube2->material.reflective = 0.1f;
+    cube2->material.reflective = 0.0f;
     cube3->material.reflective = 0.1f;
-    cube4->material.reflective = 0.2f;
+    cube4->material.reflective = 0.0f;
     cube5->material.reflective = 0.2f;
     
     auto cyl = std::make_shared<Cylinder>();
@@ -475,6 +496,10 @@ void RayTracerApp::drawTeaPot()
     w.objects.push_back(s2);
     w.objects.push_back(s3);
     w.objects.push_back(s4);
+    w.objects.push_back(s5);
+    w.objects.push_back(s6);
+    w.objects.push_back(s7);
+    w.objects.push_back(s8);
     w.objects.push_back(mirror);
     //w.objects.push_back(load.defaultGroup);
 
